@@ -1,0 +1,61 @@
+.header_logo{
+    color:#ff9010 !important;
+    text-shadow:5px 5px 10px #ff9010;
+    display:flex;
+    justify-content: center;
+   
+   
+}
+.inline-block{
+    display:inline-block;
+
+}
+.error{
+    color:red;
+}
+.password-wrong{
+    color:red;
+    border-color: red;
+}
+.password-right{
+    color:green;
+    border-color: green;
+}
+.login{
+    display:flex;
+    justify-content: center;
+    
+   
+}
+.login_container{
+    background-color: aliceblue;
+    height:fit-content;
+    width:300px;
+    display:flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border:1px solid lightgray;
+    padding:20px;
+}
+.login_btn{
+    width:100%;
+    margin-top:20px;
+    height:30px;
+    background-color: #ff9010;
+    border-radius: 3px;
+}
+.signin_btn{
+    width:100%;
+    margin-top:20px;
+    height:30px;
+    background-color: #dad7d5;
+    border-radius: 3px;
+}
+.login_container h5{
+    margin-bottom: 0px;
+    font-size:0.7rem;
+}
+.login_container input{
+    width:95%;
+    height:25px;
+}
