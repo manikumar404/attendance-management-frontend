@@ -5,7 +5,7 @@ import {selectCurrentClass,putAttendance,takeAttendance} from '../../slices/data
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddStudent from '../../components/AddStudent/AddStudent';
 import Header from '../../components/Header/Header';
-import axios from 'axios'
+import {postAttendance} from '../request'
 import {
     faFilePowerpoint,
     faTimes,
@@ -42,23 +42,21 @@ function MyClass() {
         attendanceData.attendance.push({serial:i,status:currentClass.students[i].currentAttendance})
       
       }
-      console.log(attendanceData)
-      axios.post('http://localhost:3001/tutors/take-attendance',attendanceData)
-    .then(res => {
-      console.log(res)
+      postAttendance(attendanceData).then((res)=>{
+        dispatch(takeAttendance(res.data))
+        navigate('/all-attendance')
 
-      dispatch(takeAttendance(res.data))
+      })
+      
      
-       navigate('/all-attendance')
+     
 
-    } )
-    .catch(err => console.log(err.response))
-
+    } 
     
      
       
 
-    }
+    
   return (
     <div>
     <Header/>

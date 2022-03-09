@@ -1,20 +1,27 @@
 import React from 'react'
 import './SingleClass.css'
 import { useSelector, useDispatch } from 'react-redux';
-import {selectClasses,setCurrentClass,selectCurrentClass} from '../../slices/dataSlice';
+import {setCurrentClass,selectCurrentClass} from '../../slices/dataSlice';
 import {useNavigate} from 'react-router-dom'
+import {selectThisClass} from '../../pages/request'
 
-function SingleClass({ index,className,moduleCode,classStrength,credit}) {
+function SingleClass({ index,className,moduleCode}) {
     const navigate = useNavigate()
-    const classes = useSelector(selectClasses);
+   
     const currentClass = useSelector(selectCurrentClass)
     const dispatch = useDispatch()
 
-    const selectThisClass = ()=>{
-        dispatch(setCurrentClass(classes[index]))
+    const selectThis = (moduleCode)=>{
+        selectThisClass(moduleCode).then(res=> {
+            console.log(res.data)
+            dispatch(setCurrentClass(res.data))
+
+        }
+            ).then(res=> navigate('/MyClass'))
+       
        
       
-        navigate('/MyClass')
+       
 
        
     }
@@ -22,19 +29,14 @@ function SingleClass({ index,className,moduleCode,classStrength,credit}) {
     
 
   return (
-    <div className = "class-container" onClick = {selectThisClass}>
+    <div className = "class-container" onClick = {()=>selectThis(moduleCode)}>
         <div>
             <h2>{className}</h2>
         </div>
         <div>
             <p>Moudle code {moduleCode}</p>
         </div>
-        <div>
-            <p>Class Strength  {classStrength}</p>
-        </div>
-        <div>
-            <p>Credit  {credit}</p>
-        </div>
+       
     </div>
   )
 }

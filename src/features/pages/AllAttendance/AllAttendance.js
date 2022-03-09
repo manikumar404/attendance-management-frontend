@@ -12,7 +12,8 @@ function AllAttendance() {
     const attendanceRecord = []
     const oneRecord ={}
     for(var i = 0;i<currentClass.students.length;i++){
-        oneRecord.index = currentClass.students[i].id;
+        if(currentClass.students[i].attendance[0]?.status){
+          oneRecord.index = currentClass.students[i].id;
         oneRecord.name = currentClass.students[i].name;
         oneRecord.totalClass = currentClass.students[i].attendance.length
         const present = currentClass.students[i].attendance.filter(item =>item.status==='P')
@@ -21,6 +22,8 @@ function AllAttendance() {
         oneRecord.percentage = (oneRecord.totalPresent/oneRecord.totalClass)*100
         oneRecord.currentAttendance = currentClass.students[i].attendance[currentClass.students[i].attendance.length-1].status
         attendanceRecord.push({...oneRecord})
+
+        }
     }
 
     const selectThis=(index)=>{

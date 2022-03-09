@@ -2,7 +2,7 @@ import React from 'react'
 import './style.css'
 import { useNavigate } from 'react-router-dom'
  import { useState } from "react";
- import axios from "axios";
+ import {signUp} from '../request'
  import { useDispatch } from 'react-redux';
 import {setUser} from '../../slices/dataSlice';
 
@@ -19,15 +19,7 @@ function Signup() {
       const handleSubmit = (event) => {
         event.preventDefault();
         console.log(inputs)
-        axios.post('http://localhost:3001/auth/register',{
-          name:inputs.name,
-          email:inputs.email,
-          id:inputs.id,
-          gender:inputs.gender,
-          password:inputs.password,
-          userType:inputs.userType,
-       
-        })
+       signUp(inputs)
         .then(res =>{
           if(res.status ===200){
             dispatch(setUser(res.data))
@@ -43,7 +35,7 @@ function Signup() {
          
           
            )
-        .catch(err => console.Console.log(err))
+        .catch(err => console.log(err))
       
       }
   return (

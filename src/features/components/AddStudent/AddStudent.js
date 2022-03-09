@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { addStudentPost } from "../../pages/request";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {useDispatch } from 'react-redux';
@@ -20,8 +20,8 @@ function AddStudent(props) {
       email,
       id:props.id
     }
-    axios.post('http://localhost:3001/tutors/add-student',inputs)
-    .then(res => {
+    
+    addStudentPost(inputs).then(res => {
         dispatch(addStudent(res.data))
 
     } )

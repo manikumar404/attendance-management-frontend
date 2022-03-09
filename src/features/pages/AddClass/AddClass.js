@@ -1,8 +1,7 @@
-import './AddClass.css'
-import styles from '../../counter/Counter.module.css';
+import styles from './AddClass.css'
  import React from 'react'
  import { useState } from "react";
- import axios from "axios";
+import { addClass as addClassPost } from '../request';
  import { useDispatch,useSelector } from 'react-redux';
 import {addClass,user} from '../../slices/dataSlice';
 import Header from '../../components/Header/Header';
@@ -19,15 +18,9 @@ import Header from '../../components/Header/Header';
     
       const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:3001/tutors/add-class',{
-          className:inputs.className,
-          moduleCode:inputs.moduleCode,
-          tutor:currentUser._id,
-          credit:inputs.credit,
-          classStrength:inputs.classStrength
-        })
-        .then(res => dispatch(addClass(res.data)))
-        .catch(err => console.Console.log(err))
+       
+        addClassPost(inputs,currentUser).then(res => dispatch(addClass(res.data)))
+        .catch(err => setInputs({...inputs,error:err.response.data}))
       
       }
 
@@ -35,6 +28,7 @@ import Header from '../../components/Header/Header';
      <div>
      <Header/>
     <form  onSubmit={handleSubmit}>
+    <p>{inputs.error}</p>
     <label>Enter module name:
     <input 
       className={styles.textbox}
