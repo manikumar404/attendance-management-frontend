@@ -1,0 +1,38 @@
+.admin{
+    padding:25px;
+}
+.class-block{
+    background-color: aliceblue;
+    align-items: center;
+    border-radius: 5px;
+    margin-top:30px;
+   
+}
+.students-block{
+    background-color: rgb(216, 230, 241);
+    align-items: center;
+    border-radius: 5px;
+    margin-top:30px;
+}
+.tutors-block{
+    background-color: rgb(212, 231, 248);
+    align-items: center;
+    border-radius: 5px;
+    margin-top:30px; 
+}
+
+.single-item{
+    background-color: rgb(173, 191, 207);
+    margin:20px;
+
+}
+.drop-down{
+    margin:20px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    height:40px;
+}
+.btn-delete{
+    background-color: rgb(247, 85, 85);
+    border-radius: 5px;
+}

@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 
 function SingleStudent() {
     const currentClass = useSelector(selectCurrentClass)
-    const currentStudent = currentClass.students[currentClass.currentStudent]
+    const {currentStudent} = currentClass
   return (
       <div>
       <Header/>

@@ -7,6 +7,9 @@ import AllAttendance from './features/pages/AllAttendance/AllAttendance'
 import SingleStudent from './features/pages/SingleStudent/SingleStudent'
 import Signup from './features/pages/Authentication/Signup'
 import Login from './features/pages/Authentication/Login'
+import QRcode from './features/pages/QRcode/QRcode'
+import StudentHome from './features/pages/Home/StudentHome';
+import AdminHome from './features/pages/Home/AdminHome';
 import {
   BrowserRouter,
   Routes,
@@ -25,6 +28,9 @@ function App() {
       <Route path="/add-class" element={<AddClass/>}/>
       <Route path="/all-attendance" element={<AllAttendance/>}/>
       <Route path="/signup" element={<Signup/>}/>
+      <Route path="/generate-qr" element={<QRcode/>}/>
+      <Route path="/student-home" element={<StudentHome/>}/>
+      <Route path="/admin-dashboard" element={<AdminHome/>}/>
   
     </Routes>
   </BrowserRouter>

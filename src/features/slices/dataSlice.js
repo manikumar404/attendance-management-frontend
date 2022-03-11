@@ -80,13 +80,14 @@ export const dataSlice = createSlice({
     takeAttendance: (state, action) => {
       state.currentClass = { ...state.currentClass, students: action.payload };
     },
+    setCurrentStudentsClass: (state, action) => {
+      state.currentClass = {currentStudent:action.payload} ;
+    },
   },
 });
 
 export const {
-  increment,
-  decrement,
-  incrementByAmount,
+ setCurrentStudentsClass,
   putAttendance,
   setClasses,
   setCurrentClass,

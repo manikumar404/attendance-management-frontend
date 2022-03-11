@@ -32,3 +32,23 @@ export const signIn = (inputs) =>
 
   export const selectThisClass = (moduleCode) =>
   axios.get(`${URL}/tutors/select-class?moduleCode=${moduleCode}`);
+
+  export const reqMyAttendance = (data)=>
+    axios.get(`${URL}/students/my-attendance/?moduleCode=${data.moduleCode}`,{ params: { email: data.email } })
+
+    export const getAllClasses = (data)=>
+    axios.get(`${URL}/admin/all-classes`)
+
+    export const getAllStudents = (data)=>
+    axios.get(`${URL}/admin/all-students`)
+
+    export const getAllTutors= (data)=>
+    axios.get(`${URL}/admin/all-tutors`)
+
+    export const axiosDeleteUser= (data)=>
+    axios.delete(`${URL}/admin/delete-account`,{ params: { email: data} })
+
+    export const axiosDeleteClass= (data)=>
+    axios.delete(`${URL}/admin/delete-class`,{ params: { moduleCode: data } })
+  
+

@@ -3,11 +3,12 @@ import "./style.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signIn } from "../request";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../slices/dataSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser,user} from "../../slices/dataSlice";
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentUser = useSelector(user)
   const [inputs, setInputs] = useState({});
   const handleChange = (event) => {
     const name = event.target.name;
@@ -20,13 +21,23 @@ function Login() {
 
     signIn(inputs)
       .then((res) => {
-        if (res.status === 200) {
+      
           dispatch(setUser(res.data));
-          console.log(res);
-          navigate("/home");
-        } else {
-          console.log(res);
-        }
+
+          if(currentUser.userType === 'tutor'){
+            navigate("/home");
+          }
+          if(currentUser.userType === 'student'){
+            navigate("/student-home");
+          }
+          if(currentUser.userType === 'admin'){
+            navigate("/admin-dashboard");
+          }
+          
+
+         
+          
+       
       })
       .catch((err) => {
         setInputs((values) => ({ ...values, message: err.response.data }));

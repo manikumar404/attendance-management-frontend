@@ -28,7 +28,7 @@ function AllAttendance() {
 
     const selectThis=(index)=>{
 
-      dispatch(setCurrentStudent(index))
+      dispatch(setCurrentStudent(currentClass.students[index]))
       navigate('/single-student')
 
     }

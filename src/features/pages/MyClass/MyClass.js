@@ -65,6 +65,7 @@ function MyClass() {
     <AddStudent  className='in-line' id={currentClass._id} /> 
     <button className='btn in-line' onClick={allRecord}>All Record</button>
     <button className='btn in-line' onClick={save}>Save</button>
+    <button className='btn in-line' onClick={()=>navigate('/generate-qr')}>Generate QR </button>
     </div>
     <br/>
         <table className="table">
