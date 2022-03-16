@@ -9,7 +9,7 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector(user)
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({email:'',password:''});
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;

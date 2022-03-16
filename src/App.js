@@ -10,6 +10,8 @@ import Login from './features/pages/Authentication/Login'
 import QRcode from './features/pages/QRcode/QRcode'
 import StudentHome from './features/pages/Home/StudentHome';
 import AdminHome from './features/pages/Home/AdminHome';
+import Profile from './features/pages/Profile/Profile';
+import EditClassDetails from './features/pages/EditClassDetails/EditClassDetails';
 import {
   BrowserRouter,
   Routes,
@@ -31,6 +33,8 @@ function App() {
       <Route path="/generate-qr" element={<QRcode/>}/>
       <Route path="/student-home" element={<StudentHome/>}/>
       <Route path="/admin-dashboard" element={<AdminHome/>}/>
+      <Route path="/profile" element ={<Profile/>}/>
+      <Route path="/edit-class-details" element ={<EditClassDetails/>}/>
   
     </Routes>
   </BrowserRouter>

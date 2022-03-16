@@ -15,7 +15,7 @@ function AddStudent(props) {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+  event.preventDefault();
     const inputs = {
       email,
       id:props.id

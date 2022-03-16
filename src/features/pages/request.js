@@ -46,9 +46,26 @@ export const signIn = (inputs) =>
     axios.get(`${URL}/admin/all-tutors`)
 
     export const axiosDeleteUser= (data)=>
-    axios.delete(`${URL}/admin/delete-account`,{ params: { email: data} })
+    axios.delete(`${URL}/admin/delete-account`,{ params: { _id: data} })
 
     export const axiosDeleteClass= (data)=>
-    axios.delete(`${URL}/admin/delete-class`,{ params: { moduleCode: data } })
-  
+    axios.delete(`${URL}/admin/delete-class`,{ params: { _id: data } })
 
+    export const axiosDeleteStudent= (data)=>
+    axios.delete(`${URL}/tutors/delete-student`,{ params: { _id: data._id,stdId:data.stdId } })
+
+    export const adminResetPassword= (data)=>
+    axios.post(`${URL}/admin/update-password`, { email: data.email,newPassword:data.newPassword })
+  
+    export const updateUserDetail =(data,_id)=>
+    axios.post(`${URL}/common/update-detail/`, { name:data.name,email: data.email,id:data.id,gender:data.gender },{ params: { _id } })
+
+    export const updatePassword =(data,_id)=>
+    axios.post(`${URL}/common/update-password/`, { newPassword:data.newPassword },{ params: { _id } })
+
+    export const updateClass =(data,id,tutor)=>
+    axios.post(`${URL}/tutors/update-class/`, { ...data},{ params: { id,tutor } })
+
+    export const deleteClass =(id)=>
+    axios.delete(`${URL}/tutors/delete-class`,{ params: { moduleCode: id} })
+    

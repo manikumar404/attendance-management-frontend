@@ -51,6 +51,9 @@ export const dataSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    updateUser:(state,action)=>{
+      state.user = {...state.user,...action.payload}
+    },
     addStudent: (state, action) => {
       state.currentClass = {
         ...state.currentClass,
@@ -61,6 +64,16 @@ export const dataSlice = createSlice({
             currentAttendance: "P",
             serial: state.currentClass.students.length,
           },
+        ],
+      };
+    },
+    deleteStudentFromState:(state,action)=>{
+      console.log(action,'hello')
+      state.currentClass = {
+        ...state.currentClass,
+        students: [
+          ...state.currentClass.students.filter(std=>std._id!==action.payload)
+          
         ],
       };
     },
@@ -83,6 +96,9 @@ export const dataSlice = createSlice({
     setCurrentStudentsClass: (state, action) => {
       state.currentClass = {currentStudent:action.payload} ;
     },
+    deleteOneClass:(state,action)=>{
+      state.user = {...state.user,moduleList:[...state.user.moduleList.filter(mod =>mod.moduleCode!==action.payload)]}
+    }
   },
 });
 
@@ -94,8 +110,11 @@ export const {
   addStudent,
   addClass,
   setCurrentStudent,
+  deleteOneClass,
   setUser,
   takeAttendance,
+  deleteStudentFromState,
+  updateUser
 } = dataSlice.actions;
 export const selectClasses = (state) => state.data.classes;
 export const selectCurrentClass = (state) => state.data.currentClass;

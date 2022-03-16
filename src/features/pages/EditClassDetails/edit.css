@@ -1,0 +1,16 @@
+.delete-std-btn{
+    background-color: rgb(177, 62, 62);
+    border-radius: 5px;
+    text-align: center;
+    margin:20px;
+}
+
+.students-list{
+    background-color: antiquewhite;
+    border-radius: 5px;
+    margin: 20px;
+}
+
+.invisible{
+ display:none;
+}

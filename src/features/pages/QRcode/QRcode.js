@@ -10,6 +10,7 @@ function QRcode() {
   return (
     <div>
     <Header/>
+    {console.log("generating")}
     <img src={`https://chart.googleapis.com/chart?chs=500x500&cht=qr&chl=${currentClass._id}`}/>
     </div>
   )

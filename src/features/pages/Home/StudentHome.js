@@ -7,6 +7,7 @@ import Header from '../../components/Header/Header';
 import {reqMyAttendance} from '../request'
 
 
+
 function StudentHome() {
    
     const authUser = useSelector(user)
@@ -26,7 +27,12 @@ function StudentHome() {
 
   return (
     <div>
-    <Header/>
+    <Header>
+    <div className="header_options">
+            <span className="opt2">Your Profile</span>
+        </div>
+
+    </Header>
     <br/>
     {authUser.moduleList.map((clas,index)=> 
     <div className='single-class-container' key={index} onClick={()=>select({moduleCode:clas.moduleCode,email:authUser.email})}>
