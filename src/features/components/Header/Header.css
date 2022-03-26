@@ -1,19 +1,18 @@
 .header{
     height:60px;
     display:flex;
-    align-items:center;
-    position:sticky;
+    align-items: center;
+
     top:0;
-    z-index:100;
-    color:aliceblue;
-    background-color: black;
-    padding:0 10px;
+    z-index:10;
+   
+    background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+    box-shadow: 3px 4px 5px rgb(0 0 0 / 50%);
+   
 
 }
 .header_logo{
-    color: #ff9010 !important;
-    text-shadow:5px 5px 10px #ff9010;
-    margin-right: 100px;
+    margin-left: 20px;
 }
 .home_link{
     color:#ff9010;
@@ -47,11 +46,15 @@
 .header_options{
     display:flex;
     flex-direction:column;
-    margin-left:10px;
+    margin-left:20px;
     margin-right:10px;
-    color:whitesmoke !important;
+    color:rgb(0, 0, 0) !important;
     text-decoration: none !important;
 
+}
+.header_options:hover{
+    cursor:pointer;
+    
 }
 .header_nav{
     display:flex;
@@ -59,12 +62,12 @@
 
 }
 .opt1{
-    font-size: 10px;
+    font-size: 13px;
 
 }
 .opt2{
-    font-size: 13px;
-    font-weight: 800;
+    font-size: 18px;
+    font-weight: 500;
 }
 .shopping_basket{
     display:flex;

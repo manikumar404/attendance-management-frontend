@@ -1,0 +1,34 @@
+.profilecard{
+    margin-top: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.18);
+}
+.fmp{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.mpbox{
+    margin-left: 20px;
+    margin-bottom: 15px;
+    padding: 2px;
+    border-color:  #6fa6e6;
+    border-radius: 3px;
+}
+.mpbtn{
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding:4px 6px ;
+    margin-top: 10px;
+    width: 250px;
+    border-style: none;
+    border-radius: 3px;
+    font-size: medium;
+    box-shadow: 0 0 30px rgba(0,0,0,0.18);
+    background-image: linear-gradient(
+        135deg,
+         #2bdce3, 
+         #6fa6e6);
+}

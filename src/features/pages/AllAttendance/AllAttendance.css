@@ -104,12 +104,12 @@ a {
     display: inline-block;
     margin-left: 20px;
 }
-.record-container{
+/* .record-container{
     border-radius: 5px;
     background-color: #baf3e4;
     margin: 20px;
     height:30px;
-}
+} */
 .text-light{
     color: var(--light);
 }
@@ -160,7 +160,7 @@ table{
 }
 
 .table tr:hover{
-    background-color:#baf3e4 ;
+    background-color:#72e9c5 ;
 }
 
 .table tr:hover td > a{

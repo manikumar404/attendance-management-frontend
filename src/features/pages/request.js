@@ -1,9 +1,16 @@
 import axios from "axios";
+
 const URL = "http://localhost:3001";
-export const getClasses = (authUser) =>
-  axios.get(`${URL}/tutors/my-class?id=${authUser._id}`);
-export const postAttendance = (attendanceData) =>
-  axios.post(`${URL}/tutors/take-attendance`, attendanceData);
+export const getClasses = (authUser, token) =>
+  axios.get(`${URL}/tutors/my-class?id=${authUser._id}`, {
+    headers: {
+      Authorization: "hello axios",
+    },
+  });
+export const postAttendance = (attendanceData, tutorId) =>
+  axios.post(`${URL}/tutors/take-attendance/?tutorId=${tutorId}`, {
+    attendanceData,
+  });
 export const signUp = (inputs) =>
   axios.post(`${URL}/auth/register`, {
     name: inputs.name,
@@ -12,6 +19,8 @@ export const signUp = (inputs) =>
     gender: inputs.gender,
     password: inputs.password,
     userType: inputs.userType,
+    department: inputs.department,
+    token:inputs.token
   });
 
 export const signIn = (inputs) =>
@@ -20,52 +29,123 @@ export const signIn = (inputs) =>
     password: inputs.password,
   });
 
-  export const addClass =(inputs,currentUser)=> axios.post(`${URL}/tutors/add-class`,{
-    className:inputs.className,
-    moduleCode:inputs.moduleCode,
-    tutor:currentUser._id,
-    credit:inputs.credit,
-    classStrength:inputs.classStrength
-  })
+export const addClass = (inputs, currentUser) =>
+  axios.post(`${URL}/tutors/add-class`, {
+    moduleName: inputs.moduleName,
+    moduleCode: inputs.moduleCode,
+    tutorId: currentUser,
+  });
 
-  export const addStudentPost =(inputs)=>axios.post(`${URL}/tutors/add-student`,inputs)
+export const addStudentPost = (inputs) =>
+  axios.post(`${URL}/tutors/add-student`, {
+    email: inputs.email,
+    moduleId: inputs.moduleId,
+    tutorId: inputs.tutorId,
+  });
 
-  export const selectThisClass = (moduleCode) =>
-  axios.get(`${URL}/tutors/select-class?moduleCode=${moduleCode}`);
+export const selectThisClass = (moduleCode, tutorId) =>
+  axios.get(
+    `${URL}/tutors/select-class?moduleCode=${moduleCode}&tutorId=${tutorId}`
+  );
 
-  export const reqMyAttendance = (data)=>
-    axios.get(`${URL}/students/my-attendance/?moduleCode=${data.moduleCode}`,{ params: { email: data.email } })
+export const reqMyAttendance = (moduleId, studentId) =>
+  axios.get(`${URL}/students/my-attendance/`, {
+    params: { moduleId, studentId },
+  });
 
-    export const getAllClasses = (data)=>
-    axios.get(`${URL}/admin/all-classes`)
+export const getAllClasses = (data) => axios.get(`${URL}/admin/all-classes`);
 
-    export const getAllStudents = (data)=>
-    axios.get(`${URL}/admin/all-students`)
+export const getAllMyClasses = (data) =>
+  axios.get(`${URL}/tutors/my-class`, { params: { tutorId: data } });
 
-    export const getAllTutors= (data)=>
-    axios.get(`${URL}/admin/all-tutors`)
+export const getAllStudents = (data) => axios.get(`${URL}/admin/all-students`);
 
-    export const axiosDeleteUser= (data)=>
-    axios.delete(`${URL}/admin/delete-account`,{ params: { _id: data} })
+export const getAllTutors = (data) => axios.get(`${URL}/admin/all-tutors`);
 
-    export const axiosDeleteClass= (data)=>
-    axios.delete(`${URL}/admin/delete-class`,{ params: { _id: data } })
+export const axiosDeleteUser = (data) =>
+  axios.delete(`${URL}/admin/delete-account`, { params: { _id: data } });
 
-    export const axiosDeleteStudent= (data)=>
-    axios.delete(`${URL}/tutors/delete-student`,{ params: { _id: data._id,stdId:data.stdId } })
+export const axiosDeleteClass = (moduleId) =>
+  axios.delete(`${URL}/admin/delete-class`, { params: { moduleId } });
 
-    export const adminResetPassword= (data)=>
-    axios.post(`${URL}/admin/update-password`, { email: data.email,newPassword:data.newPassword })
+export const getAllAttendanceOfClass = (data,tutorId) =>
+  axios.get(`${URL}/tutors/all-attendance-of-class`, {
+    params: { moduleId: data ,tutorId},
+  });
+
+export const axiosDeleteStudent = (data) =>
+  axios.delete(`${URL}/tutors/delete-student`, {
+    params: {
+      moduleId: data.moduleId,
+      studentId: data.stdId,
+      tutorId: data.tutorId,
+    },
+  });
+
+export const adminResetPassword = (data) =>
+  axios.post(`${URL}/admin/update-password`, {
+    email: data.email,
+    newPassword: data.newPassword,
+  });
+
+export const updateUserDetail = (data, _id) =>
+  axios.post(
+    `${URL}/common/update-detail/`,
+    { name: data.name, email: data.email, department: data.department, gender: data.gender },
+    { params: { userId: _id } }
+  );
+
+export const updatePassword = (data, _id) =>
+  axios.post(
+    `${URL}/common/update-password/`,
+    { newPassword: data.newPassword },
+    { params: { userId: _id } }
+  );
+
+export const updateClass = (data, moduleId, tutorId) =>
+  axios.post(
+    `${URL}/tutors/update-class/`,
+    { ...data },
+    { params: { moduleId, tutorId } }
+  );
+
+export const axiosDeleteClassTutor = (moduleId, tutorId) =>
+  axios.delete(`${URL}/tutors/delete-class`, { params: { moduleId, tutorId } });
+
+export const resetAttendance = (attendanceId, status, tutorId) =>
+  axios.post(
+    `${URL}/tutors/change-attendance/`,
+    { status },
+    { params: { attendanceId, tutorId } }
+  );
+
+export const getAllMyModules = (studentId) =>
+  axios.get(`${URL}/students/my-class/`, { params: { studentId } });
+
+  export const getAllStudentsByDepartment = (tutorId,department) =>
+  axios.get(`${URL}/tutors/get-students-by-department/`, { params: { tutorId,department } });
+
+  export const getAllTokens = () =>
+  axios.get(`${URL}/admin/tokens`);
+
+  export const deleteAllTokens = () =>
+  axios.delete(`${URL}/admin/tokens`);
+
+  export const createStudentsToken = (token) =>
+  axios.post(
+    `${URL}/admin/create-students-token`,
+    { token }
+  );
+  export const createTutorsToken = (token) =>
+  axios.post(
+    `${URL}/admin/create-tutors-token`,
+    { token }
+  );
+
+  export const changeClassProperty=(property,tutorId,moduleId)=>
+    axios.post(
+      `${URL}/tutors/change-class-property`,
+      { property,tutorId,moduleId }
+    );
+
   
-    export const updateUserDetail =(data,_id)=>
-    axios.post(`${URL}/common/update-detail/`, { name:data.name,email: data.email,id:data.id,gender:data.gender },{ params: { _id } })
-
-    export const updatePassword =(data,_id)=>
-    axios.post(`${URL}/common/update-password/`, { newPassword:data.newPassword },{ params: { _id } })
-
-    export const updateClass =(data,id,tutor)=>
-    axios.post(`${URL}/tutors/update-class/`, { ...data},{ params: { id,tutor } })
-
-    export const deleteClass =(id)=>
-    axios.delete(`${URL}/tutors/delete-class`,{ params: { moduleCode: id} })
-    

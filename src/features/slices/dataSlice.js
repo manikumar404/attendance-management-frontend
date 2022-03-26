@@ -2,8 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   status: "idle",
-  currentClass: {},
+  currentClass: {
+    moduleId: "",
+    students: [],
+  },
   user: {},
+  classes: [],
+  attendance: [],
 };
 
 export const incrementAsync = createAsyncThunk(
@@ -24,7 +29,7 @@ export const dataSlice = createSlice({
       state.classes = action.payload;
     },
     setCurrentClass: (state, action) => {
-      console.log(action)
+      console.log(action);
       const students = [];
       const std = action.payload.students;
       for (var i = 0; i < std.length; i++) {
@@ -42,6 +47,20 @@ export const dataSlice = createSlice({
       }
       state.currentClass = { ...action.payload, students: students };
     },
+    setAttendance: (state, action) => {
+      const updatedStudents = [];
+      const students = [...state.currentClass.students];
+      for (const student of students) {
+        const attendance = {
+          ...student,
+          attendance: action.payload.filter(
+            (attendance) => attendance.studentId === student._id
+          ),
+        };
+        updatedStudents.push(attendance);
+      }
+      state.currentClass = { ...state.currentClass, students: updatedStudents };
+    },
     addClass: (state, action) => {
       state.user = {
         ...state.user,
@@ -49,10 +68,12 @@ export const dataSlice = createSlice({
       };
     },
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.user = {...action.payload.user,
+      token:action.payload.token}
     },
-    updateUser:(state,action)=>{
-      state.user = {...state.user,...action.payload}
+
+    updateUser: (state, action) => {
+      state.user = { ...state.user, ...action.payload };
     },
     addStudent: (state, action) => {
       state.currentClass = {
@@ -67,13 +88,14 @@ export const dataSlice = createSlice({
         ],
       };
     },
-    deleteStudentFromState:(state,action)=>{
-      console.log(action,'hello')
+    deleteStudentFromState: (state, action) => {
+      console.log(action, "hello");
       state.currentClass = {
         ...state.currentClass,
         students: [
-          ...state.currentClass.students.filter(std=>std._id!==action.payload)
-          
+          ...state.currentClass.students.filter(
+            (std) => std._id !== action.payload
+          ),
         ],
       };
     },
@@ -91,32 +113,72 @@ export const dataSlice = createSlice({
       };
     },
     takeAttendance: (state, action) => {
-      state.currentClass = { ...state.currentClass, students: action.payload };
+      // const updatedStudents = []
+      // const students = [...state.currentClass.students]
+      // for( const student of students){
+      //   const attendance = {
+      //     ...student,
+      //     attendance:[action.payload.filter(attendance => attendance.studentId === student._id)]
+      //   }
+      //   updatedStudents.push(attendance)
+      // }
+      // state.currentClass = {...state.currentClass,students:updatedStudents}
     },
+
+    refreshAttendance: (state, action) => {
+      const newAttendance = [...state.attendance];
+      for (let i = 0; i < newAttendance.length; i++) {
+        newAttendance[i].attendance.push(action.payload[i]);
+        console.log("hello wai");
+      }
+      state.attendance = newAttendance;
+    },
+    resetAttendance: (state, action) => {
+      const newAttendance = {
+        ...state.currentClass,
+        currentStudent: {
+          ...state.currentClass.currentStudent,
+          attendance: [...state.currentClass.currentStudent.attendance],
+        },
+      };
+      newAttendance.currentStudent.attendance[action.payload.index] =
+        action.payload.status;
+      state.currentClass = newAttendance;
+    },
+
     setCurrentStudentsClass: (state, action) => {
-      state.currentClass = {currentStudent:action.payload} ;
+      state.currentClass = {
+        ...action.payload.currentClass,
+        currentStudent: {...action.payload.currentStudent,attendance: action.payload.attendance},
+        
+      };
     },
-    deleteOneClass:(state,action)=>{
-      state.user = {...state.user,moduleList:[...state.user.moduleList.filter(mod =>mod.moduleCode!==action.payload)]}
-    }
+    deleteOneClass: (state, action) => {
+      state.classes = [
+        ...state.classes.filter((cls) => cls._id !== action.payload),
+      ];
+    },
   },
 });
 
 export const {
- setCurrentStudentsClass,
+  setCurrentStudentsClass,
   putAttendance,
   setClasses,
+  setAttendance,
   setCurrentClass,
   addStudent,
   addClass,
   setCurrentStudent,
+  resetAttendance,
   deleteOneClass,
   setUser,
   takeAttendance,
   deleteStudentFromState,
-  updateUser
+  updateUser,
 } = dataSlice.actions;
 export const selectClasses = (state) => state.data.classes;
 export const selectCurrentClass = (state) => state.data.currentClass;
 export const user = (state) => state.data.user;
+export const attendance = (state) => state.data.attendance;
 export default dataSlice.reducer;

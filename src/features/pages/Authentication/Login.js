@@ -4,12 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signIn } from "../request";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser,user} from "../../slices/dataSlice";
+import { setUser, user } from "../../slices/dataSlice";
+import logo from '../../../assets/logo.png'
+import bg from '../../../assets/bg.svg'
+import wave from '../../../assets/wave.png'
+import axios from "axios";
+
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const currentUser = useSelector(user)
-  const [inputs, setInputs] = useState({email:'',password:''});
+  const currentUser = useSelector(user);
+  const [inputs, setInputs] = useState({ email: "", password: "" });
+  const [focuses, setFocuses] = useState({email:false,password:false})
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -21,62 +27,100 @@ function Login() {
 
     signIn(inputs)
       .then((res) => {
-      
-          dispatch(setUser(res.data));
+        axios.defaults.headers.common['Authorization'] =res.data.token;
+        dispatch(setUser(res.data));
 
-          if(currentUser.userType === 'tutor'){
-            navigate("/home");
-          }
-          if(currentUser.userType === 'student'){
-            navigate("/student-home");
-          }
-          if(currentUser.userType === 'admin'){
-            navigate("/admin-dashboard");
-          }
-          
-
-         
-          
-       
+        if (currentUser.userType === "tutor") {
+          navigate("/home");
+        }
+        if (currentUser.userType === "student") {
+          navigate("/student-home");
+        }
+        if (currentUser.userType === "admin") {
+          navigate("/admin-dashboard");
+        }
       })
       .catch((err) => {
         setInputs((values) => ({ ...values, message: err.response.data }));
         console.log(inputs);
       });
   };
+
+  const focusE=()=>{
+    setFocuses({...focuses,email:true})
+
+  }
+
+  const blurE=()=>{
+    setFocuses({...focuses,email:false})
+
+  }
+  const focusP=()=>{
+    setFocuses({...focuses,password:true})
+
+  }
+
+  const blurP=()=>{
+    setFocuses({...focuses,password:false})
+
+  }
+
   return (
     <div className="login">
-      <div>
-        <div className="login_container">
-          <h2>login</h2>
+      <img className="wave" src={wave} alt = "logo" />
+      <div className="container">
+        <div className="img">
+          <img src={bg} alt = "background"/>
+        </div>
+        <div className="login-content">
           <form>
-            <h5>email</h5>
-            <input
-              type="email"
-              name="email"
-              value={inputs.email}
-              onChange={handleChange}
-            />
-
-            <h5>password</h5>
-            <input
-              type="password"
-              name="password"
-              value={inputs.password1}
-              onChange={handleChange}
-            />
-            <br />
-            <button className="login_btn" type="submit" onClick={handleSubmit}>
-              login
-            </button>
+            <img src={logo} alt = "background"/>
+            <h2 className="title">Attendance Management System</h2>
+            <div className="input-div one">
+              <div className="i">
+                <i className="fas fa-user"></i>
+              </div>
+              <div className="div">
+                
+                <input
+                  type="email"
+                  onFocus = {focusE}
+                  onBlur = {blurE}
+                  placeholder="Email"
+               
+                  name="email"
+                 className={focuses.email?'input focus':'input'}
+                  value={inputs.email}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="input-div pass">
+              <div className="i">
+                <i className="fas fa-lock"></i>
+              </div>
+              <div className="div">
+               
+                <input
+                  type="password"
+                  name="password"
+                   onFocus = {focusP}
+                   placeholder='Password'
+                   onBlur = {blurP}
+                  className={focuses.password?'input focus':'input'}
+                  value={inputs.password1}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <a  onClick={() => navigate("/signup")}>dont have account?</a>
             <p className="error">{inputs.message}</p>
-            <p>
-              by signing up, you agree the terms
-              <br />s and conditions of oneshop
-            </p>
-            <button className="signin_btn" onClick={() => navigate("/signup")}>
-              create account
-            </button>
+            <input
+              className="btn"
+              type="submit"
+             
+              onClick={handleSubmit}
+            />
           </form>
         </div>
       </div>

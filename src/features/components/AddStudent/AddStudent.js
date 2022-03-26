@@ -3,11 +3,16 @@ import { addStudentPost } from "../../pages/request";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {useDispatch } from 'react-redux';
-import {addStudent} from '../../slices/dataSlice';
+import {addStudent,selectCurrentClass} from '../../slices/dataSlice';
+import './AddStudent.css';
+import { useSelector } from "react-redux";
+
 
 function AddStudent(props) {
   const [email, setEmail] = useState("");
+  const [errors,setErrors] = useState("")
   const dispatch = useDispatch()
+  const currentClass = useSelector(selectCurrentClass)
   
   const handleChange = (event) => {
     const value = event.target.value;
@@ -18,14 +23,17 @@ function AddStudent(props) {
   event.preventDefault();
     const inputs = {
       email,
-      id:props.id
+      moduleId:currentClass.moduleId,
+      tutorId:currentClass.tutorId
     }
+    console.log(inputs)
     
     addStudentPost(inputs).then(res => {
+      
         dispatch(addStudent(res.data))
 
     } )
-    .catch(err => console.Console.log(err))
+    .catch(err => setErrors(err.response.data))
 
  
   
@@ -33,15 +41,21 @@ function AddStudent(props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Enter student email:
+    <div className = "add-std-form">
+    
       <input 
         type="text" 
+        className="add-student-input"
         name="email" 
+        placeholder="Enter Student Email"
         value={email || ""} 
         onChange={handleChange}
       />
-      </label>
-      <button className="text-gradient border-shadow" type = "submit">Add Student<FontAwesomeIcon icon={faUser} /></button>
+   
+      <button className="add-std-btn" type = "submit">Add Student<FontAwesomeIcon icon={faUser} /></button>
+      <p>{errors}</p>
+
+      </div>
         
     </form>
   )

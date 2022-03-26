@@ -4,20 +4,21 @@ import { updateUserDetail ,updatePassword} from "../request";
 import { useDispatch, useSelector } from "react-redux";
 import { user, updateUser } from "../../slices/dataSlice";
 import Header from "../../components/Header/Header";
+import './Profile.css'
 
 function Profile() {
   const dispatch = useDispatch();
   const {
     name,
     email,
-    id,
+    department,
     gender,
     _id
   } = useSelector(user);
   const [inputs, setInputs] = useState({
     name,
     email,
-    id,
+    department,
     gender,
   });
 
@@ -41,17 +42,17 @@ function Profile() {
     event.preventDefault();
     updateUserDetail(inputs, _id)
       .then((res) => dispatch(updateUser(res.data)))
-      .catch((err) => setInputs({ ...inputs, error: err.response.data }));
+      .catch((err) => setInputs({ ...inputs, error: err.response?.data }));
   };
 
   const handleSubmitPasswords = (event) => {
     event.preventDefault();
     if(passwords.oldPassword === passwords.newPassword){
-      updatePassword(passwords,_id).then(res=>console.log(res.data)).catch(err=>console.log(err.response.data))
+      updatePassword(passwords,_id).then(res=>console.log(res.data)).catch(err=>setInputs({ ...inputs, error1: err.response?.data }))
 
     }
     else{
-      console.log("password did not match")
+      setInputs({ ...inputs, error1: "passwords did not match" })
     }
 
     // 
@@ -59,38 +60,44 @@ function Profile() {
   };
 
   return (
-    <div>
+    <div >
       <Header />
-      <form onSubmit={handleSubmit}>
+      <div className="profilecard">
+      <h2 className='Edit-text'>My Profile <hr/></h2>
+      <form className='fmp' onSubmit={handleSubmit}>
         <p>{inputs.error}</p>
         <label>
           {" "}
-          name:
+          Name:
           <input
+            className="mpbox"
             type="text"
             name="name"
             value={inputs.name || ""}
             onChange={handleChange}
           />
-        </label>
+        </label><br/>
         <label>
-          email:
+          Email:
           <input
+          className="mpbox"
             type="text"
             name="email"
             value={inputs.email || ""}
             onChange={handleChange}
           />
-        </label>
+        </label><br/>
         <label>
-          id:
+          Department:
           <input
+          className="mpbox"
             type="text"
-            name="id"
-            value={inputs.id || ""}
+            name="department"
+            value={inputs.department || ""}
             onChange={handleChange}
           />
-        </label>
+        </label><br/>
+       
         Gender
         <input
           className="inline"
@@ -109,39 +116,39 @@ function Profile() {
           checked={inputs.gender === "Female"}
           onChange={handleChange}
         />
-        <p className="inline">female</p>
-        <input type="submit" />
+        <p className="inline">female</p><br/>
+        <input className="mpbtn" type="submit" />
       </form>
-
-
       <br/>
-      <br/>
-
-
-      <form onSubmit={handleSubmitPasswords}>
-        <p>{inputs.error}</p>
+      <hr/><br/>
+      
+      <form className='fmp' onSubmit={handleSubmitPasswords}>
+        <p>{inputs.error1}</p>
     
         <label>
-          new password
+          New Password:
           <input
+          className="mpbox"
             type="password"
             name="oldPassword"
             value={passwords.oldPassword || ""}
             onChange={passwordFormChange}
           />
-        </label>
+        </label><br/>
         <label>
-         confirm new password
+         Confirm New Password:
           <input
+          className="mpbox"
             type="password"
             name="newPassword"
             value={passwords.newPassword|| ""}
             onChange={passwordFormChange}
           />
-        </label>
+        </label><br/>
        
-        <input type="submit" />
+        <input className="mpbtn" type="submit" />
       </form>
+      </div>
     </div>
   );
 }

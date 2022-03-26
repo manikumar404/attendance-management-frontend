@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Home from './features/pages/Home/Home.js'
 import MyClass from './features/pages/MyClass/MyClass.js'
@@ -16,9 +16,24 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  //useNavigate,
 } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { user,setUser } from './features/slices/dataSlice';
+import { findUserWithId } from './features/pages/request';
 
 function App() {
+  const authUser = useSelector(user)
+  const dispatch = useDispatch()
+  //const navigate = useNavigate()
+  useEffect(()=>{
+    // if(!authUser){
+    //   navigate('/')
+    //   //findUserWithId(authUser._id).then(res => dispatch(setUser(res.data))).catch(err => console.log(err.response))
+    // }
+    
+  
+  },[])
   return (
     <div className="App">
     <BrowserRouter>

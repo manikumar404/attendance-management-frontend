@@ -1,34 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Header.css'
 import { useNavigate } from 'react-router-dom'
+import logo from '../../../assets/logo.png'
+import { useSelector } from 'react-redux'
+import { user } from '../../slices/dataSlice'
 
 function Header(props) {
+  const authUser = useSelector(user)
   const navigate = useNavigate()
+  useEffect(()=>{
+    if(!authUser._id){
+      console.log("hello no auth user")
+      navigate('/')
+
+    }
+   
+  })
   return (
     <div className="header">
     <div className="header_logo">
       
-        <h1> Logo</h1>
+    <a className='logo' href=''><img src={logo} alt="logo" width="50px" /></a><br/>
        
         
     </div>
     <div className="header_nav">
       
       { <div className="header_options" onClick={()=>navigate('/profile')}>
-            <span className="opt1">your</span>
+            <span className="opt1">Your</span>
             <span className="opt2">Profile</span>
         </div>}
   
-        {<div className="header_options">
-            <span className="opt2">save changes</span>
-        </div>}
+       
 
         {props.children}
-       { <div className="header_options">
-            <span className="opt1">name</span>
-            <span className="opt2">sign out</span>
-        </div>
-}
+       
 
      
     </div>

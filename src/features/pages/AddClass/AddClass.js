@@ -9,7 +9,7 @@ import Header from '../../components/Header/Header';
  function AddClass() {
     const dispatch = useDispatch()
     const currentUser = useSelector(user)
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState({moduleName:'',moduleCode:''});
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -19,56 +19,45 @@ import Header from '../../components/Header/Header';
       const handleSubmit = (event) => {
         event.preventDefault();
        
-        addClassPost(inputs,currentUser).then(res => dispatch(addClass(res.data)))
-        .catch(err => setInputs({...inputs,error:err.response.data}))
+        addClassPost(inputs,currentUser._id).then(res => dispatch(addClass(res.data)))
+        .catch(err => setInputs({...inputs,error:err.response?.data}))
       
       }
 
    return (
-     <div>
-     <Header/>
-    <form  onSubmit={handleSubmit}>
-    <p>{inputs.error}</p>
-    <label>Enter module name:
-    <input 
-      className={styles.textbox}
-      type="text" 
-      name="className" 
-      value={inputs.className || ""} 
-      onChange={handleChange}
-    />
-    </label>
+    <div>
+    <Header/>
+   <form className='Acard' onSubmit={handleSubmit}>
+   <h2 className='text-addcl'>Add Class</h2>
+   <p>{inputs.error}</p>
 
-    <label>Enter module code:
-    <input 
-    className={styles.textbox}
-      type="text" 
-      name="moduleCode" 
-      value={inputs.moduleCode || ""} 
-      onChange={handleChange}
-    />
-    </label>
-    <label>Enter module credit:
-      <input 
-      className={styles.textbox}
-        type="number" 
-        name="credit" 
-        value={inputs.credit || ""} 
-        onChange={handleChange}
-      />
-      </label>
-      <label>Enter class strength:
-      <input 
-      className={styles.textbox}
-        type="number" 
-        name="classStrength" 
-        value={inputs.classStrength || ""} 
-        onChange={handleChange}
-      />
-      </label>
-      <input className={styles.button} type="submit" />
-  </form>
-  </div>
+   <label className='l1'><h6>Module code:</h6>
+   <input 
+   className='Abox'
+     type="text" 
+     name="moduleCode" 
+     placeholder='module code'
+     value={inputs.moduleCode } 
+     onChange={handleChange}
+   />
+   </label><br/>
+
+   <label className='l1' ><h6>Module name:</h6>
+   <input 
+     className='Abox'
+     type="text" 
+     name="moduleName" 
+     placeholder='module name'
+     value={inputs.moduleName} 
+     onChange={handleChange}
+   />
+   </label><br/>
+
+   
+   <br/>
+     <input className='asbtn' type="submit" />
+ </form>
+ </div>
    )
  }
  
