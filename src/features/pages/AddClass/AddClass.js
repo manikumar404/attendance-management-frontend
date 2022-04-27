@@ -1,5 +1,4 @@
-import styles from './AddClass.css'
- import React from 'react'
+import React from 'react'
  import { useState } from "react";
 import { addClass as addClassPost } from '../request';
  import { useDispatch,useSelector } from 'react-redux';

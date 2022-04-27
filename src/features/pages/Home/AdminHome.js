@@ -12,7 +12,6 @@ import { getAllStudents,
   deleteAllTokens
 
 } from "../request";
-import "./Admin.css";
 import Header from '../../components/Header/Header';
 import { useSelector} from "react-redux";
 import {  user } from "../../slices/dataSlice";

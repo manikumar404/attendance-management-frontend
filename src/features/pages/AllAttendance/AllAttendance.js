@@ -8,7 +8,6 @@ import {
 } from "../../slices/dataSlice";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import "./AllAttendance.css";
 
 function AllAttendance() {
   const currentClass = useSelector(selectCurrentClass);

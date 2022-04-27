@@ -6,11 +6,9 @@ import {
   setClasses,
   selectClasses,
 } from "../../slices/dataSlice";
-import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import { getAllMyModules, reqMyAttendance } from "../request";
-import "./StudentHome.css";
 
 function StudentHome() {
   const authUser = useSelector(user);

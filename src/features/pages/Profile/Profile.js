@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { updateUserDetail ,updatePassword} from "../request";
+import { updateUserDetail} from "../request";
 import { useDispatch, useSelector } from "react-redux";
 import { user, updateUser } from "../../slices/dataSlice";
 import Header from "../../components/Header/Header";
-import './Profile.css'
+import {Container, Row, Col, Card, Button, CardGroup} from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -22,134 +23,91 @@ function Profile() {
     gender,
   });
 
-  const [passwords,setPasswords] = useState({
-    oldPassword:'',
-    newPassword:''
-  })
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
-  };
-
-  const passwordFormChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setPasswords((values) => ({ ...values, [name]: value }));
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     updateUserDetail(inputs, _id)
       .then((res) => dispatch(updateUser(res.data)))
       .catch((err) => setInputs({ ...inputs, error: err.response?.data }));
-  };
-
-  const handleSubmitPasswords = (event) => {
-    event.preventDefault();
-    if(passwords.oldPassword === passwords.newPassword){
-      updatePassword(passwords,_id).then(res=>console.log(res.data)).catch(err=>setInputs({ ...inputs, error1: err.response?.data }))
-
-    }
-    else{
-      setInputs({ ...inputs, error1: "passwords did not match" })
-    }
-
-    // 
-    console.log(passwords)
-  };
+  }; 
 
   return (
+    
     <div >
-      <Header />
-      <div className="profilecard">
-      <h2 className='Edit-text'>My Profile <hr/></h2>
-      <form className='fmp' onSubmit={handleSubmit}>
+      <Header /><br/>     
+
+      {/* <CardGroup>
+        
+  <Card >
+    <Card.Img variant="top" src="holder.js/100px160" />
+    <Card.Body>
+      <Card.Title>Card title</Card.Title>
+      <Card.Text>
+        This is a wider card with supporting text below as a natural lead-in to
+        additional content. This content is a little bit longer.
+      </Card.Text>
+    </Card.Body>
+    <Card.Footer>
+      <small className="text-muted">Last updated 3 mins ago</small>
+    </Card.Footer>
+  </Card>
+  <Card>
+    <Card.Img variant="top" src="holder.js/100px160" />
+    <Card.Body>
+      <Card.Title>Card title</Card.Title>
+      <Card.Text>
+        This card has supporting text below as a natural lead-in to additional
+        content.{' '}
+      </Card.Text>
+    </Card.Body>
+    <Card.Footer>
+      <small className="text-muted">Last updated 3 mins ago</small>
+    </Card.Footer>
+  </Card>
+</CardGroup> */}
+
+<Card className="text-center">
+  <Card.Header><b>My Profile</b></Card.Header>
+  <Card.Body>
+    <Card.Title></Card.Title>
+    <Card.Text>
+    <form className='fmp' onSubmit={handleSubmit}>
         <p>{inputs.error}</p>
-        <label>
-          {" "}
-          Name:
-          <input
+        <label>          
+          <p
             className="mpbox"
             type="text"
-            name="name"
-            value={inputs.name || ""}
-            onChange={handleChange}
-          />
+            name="name">Name: {inputs.name}</p>               
         </label><br/>
-        <label>
-          Email:
-          <input
+        <label>          
+          <p
           className="mpbox"
             type="text"
-            name="email"
-            value={inputs.email || ""}
-            onChange={handleChange}
-          />
+            name="email">Email: {inputs.email}</p>
         </label><br/>
-        <label>
-          Department:
-          <input
+        <label>          
+          <p
           className="mpbox"
             type="text"
-            name="department"
-            value={inputs.department || ""}
-            onChange={handleChange}
-          />
-        </label><br/>
-       
-        Gender
-        <input
+            name="department">Department: {inputs.department}</p>
+        </label>  <br/>      
+        <p
           className="inline"
           type="radio"
           value="Male"
-          name="gender"
-          checked={inputs.gender === "Male"}
-          onChange={handleChange}
-        />
-        <p className="inline">male</p>
-        <input
-          className="inline-block"
-          type="radio"
-          value="Female"
-          name="gender"
-          checked={inputs.gender === "Female"}
-          onChange={handleChange}
-        />
-        <p className="inline">female</p><br/>
-        <input className="mpbtn" type="submit" />
+          name="gender">Gender: {inputs.gender}</p>        
+         
       </form>
-      <br/>
-      <hr/><br/>
-      
-      <form className='fmp' onSubmit={handleSubmitPasswords}>
-        <p>{inputs.error1}</p>
-    
-        <label>
-          New Password:
-          <input
-          className="mpbox"
-            type="password"
-            name="oldPassword"
-            value={passwords.oldPassword || ""}
-            onChange={passwordFormChange}
-          />
-        </label><br/>
-        <label>
-         Confirm New Password:
-          <input
-          className="mpbox"
-            type="password"
-            name="newPassword"
-            value={passwords.newPassword|| ""}
-            onChange={passwordFormChange}
-          />
-        </label><br/>
-       
-        <input className="mpbtn" type="submit" />
-      </form>
-      </div>
-    </div>
+    </Card.Text>
+    <Link to='/ProfileEdit'>
+        <input className="btn btn-outline-success" type="submit" value="Edit Profile"  />
+        </Link>
+  </Card.Body>
+  <Card.Footer className="text-muted">@attendance management system</Card.Footer>
+</Card>
+</div>
+
+
+
   );
 }
 

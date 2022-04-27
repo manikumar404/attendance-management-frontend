@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
-import './Header.css'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo.png'
 import { useSelector } from 'react-redux'
 import { user } from '../../slices/dataSlice'
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {Navbar, Nav, Container} from 'react-bootstrap'
+
 
 function Header(props) {
   const authUser = useSelector(user)
@@ -16,28 +19,43 @@ function Header(props) {
     }
    
   })
-  return (
-    <div className="header">
-    <div className="header_logo">
-      
-    <a className='logo' href=''><img src={logo} alt="logo" width="50px" /></a><br/>
-       
-        
-    </div>
-    <div className="header_nav">
-      
-      { <div className="header_options" onClick={()=>navigate('/profile')}>
-            <span className="opt1">Your</span>
-            <span className="opt2">Profile</span>
-        </div>}
+  const dispatch = useDispatch();
+  const {
+    name
+  } = useSelector(user);
+  const [inputs] = useState({
+    name
+  });
+
   
-       
-
-        {props.children}
-       
-
-     
-    </div>
+  return (    
+    <div className="header">          
+      <Navbar className='bg-success text-light' variant="light" >
+        <Container>
+          <Navbar.Brand href="#home">
+            <div className="header_logo">      
+            <a className='logo' href=''><img src={logo} alt="logo" width="40px" /></a>    
+            </div>
+          </Navbar.Brand>
+          <Nav className="me-auto ">
+            <div className='text-light'>{inputs.name}</div>                    
+          </Nav>
+          <Nav>
+          <Nav.Link>
+              <div className="header_options" onClick={()=>navigate('/profile')}>
+                  <span className="text-light">My Profile</span>
+              </div>
+          </Nav.Link>
+            <Nav.Link>
+              <div className="header_options text-light" onClick={() => navigate("/")}>
+                 <span className="opt2">Sign Out</span>
+              </div>
+          </Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      {props.children}     
+    
 </div> 
   )
 }

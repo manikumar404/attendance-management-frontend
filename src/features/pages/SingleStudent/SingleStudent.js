@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {resetAttendance, selectCurrentClass,user} from '../../slices/dataSlice';
-import './SingleStudent.css'
 import Header from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { resetAttendance as axiosResetAttendance } from '../request';

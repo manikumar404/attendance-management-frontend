@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import Home from './features/pages/Home/Home.js'
 import MyClass from './features/pages/MyClass/MyClass.js'
 import AddClass from './features/pages/AddClass/AddClass'
@@ -11,6 +10,7 @@ import QRcode from './features/pages/QRcode/QRcode'
 import StudentHome from './features/pages/Home/StudentHome';
 import AdminHome from './features/pages/Home/AdminHome';
 import Profile from './features/pages/Profile/Profile';
+import ProfileEdit from './features/pages/Profile/ProfileEdit';
 import EditClassDetails from './features/pages/EditClassDetails/EditClassDetails';
 import {
   BrowserRouter,
@@ -49,15 +49,14 @@ function App() {
       <Route path="/student-home" element={<StudentHome/>}/>
       <Route path="/admin-dashboard" element={<AdminHome/>}/>
       <Route path="/profile" element ={<Profile/>}/>
+      <Route path='/ProfileEdit' element={<ProfileEdit/>}/>
       <Route path="/edit-class-details" element ={<EditClassDetails/>}/>
   
     </Routes>
-  </BrowserRouter>
-     
-        
-        
+  </BrowserRouter>      
        
     </div>
+    
   );
 }
 

@@ -5,7 +5,6 @@
 import {user,selectCurrentClass,deleteStudentFromState, setCurrentClass,} from '../../slices/dataSlice';
 import Header from '../../components/Header/Header';
 import { updateClass,axiosDeleteStudent,deleteClass} from '../request';
-import './edit.css'
 import { useNavigate } from 'react-router-dom';
 
 function EditClassDetails() {

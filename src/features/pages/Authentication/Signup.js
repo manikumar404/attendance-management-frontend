@@ -1,13 +1,13 @@
 import React from "react";
-import "./style.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signUp } from "../request";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../slices/dataSlice";
 import logo from "../../../assets/logo.png";
-import bg from "../../../assets/bg.svg";
-import wave from "../../../assets/wave.png";
+// import bg from "../../../assets/bg.svg";
+//import wave from "../../../assets/wave.png";
+import ring from "../../../assets/ringff.png";
 
 function Signup() {
   const navigate = useNavigate();
@@ -38,66 +38,58 @@ function Signup() {
    
   };
   return (
-    <div className="login">
-      <img className="wave" src={wave} alt="logo" />
-      <div className="container">
-        <div className="img">
-          <img src={bg} alt="background" />
-        </div>
-        <div className="login-content">
-          <form>
-            <img src={logo} alt="background" />
-            <h2 className="title">Attendance Management System</h2>
-            <div className="input-div one">
-              <div className="i">
-                <i className="fas fa-user"></i>
-              </div>
-              <div className="div">
-                <input
+    <section className="login">
+      <div className="container mt-5">           
+        <div className="row ">          
+          <div className="col-md-6">
+            <div className="card " >
+            <div className="card-body m-4">
+              <div className="row">
+              <div className="col-8">
+                <img src={logo} alt="background" width='50px'/>
+                </div>
+                <div className="col-4">
+                <h5 class="card-title text-success">SIGN IN</h5>
+                </div>                
+              </div><hr/>
+            
+            
+           
+            <form>
+              <div className="form-group mt-4">
+               <input
+                  className="form-control"
                   type="text"
                   name="token"
-                  placeholder="token"
+                  placeholder="Token"
                   value={inputs.token}
                   onChange={handleChange}
                 />
               </div>
-            </div>
-            <div className="input-div one">
-              <div className="i">
-                <i className="fas fa-user"></i>
-              </div>
-              <div className="div">
+              <div className="form-group mt-4">
                 <input
+                  className="form-control"
                   type="text"
                   name="name"
-                  placeholder="Name"
+                  placeholder="Enter Name"
                   value={inputs.name}
                   onChange={handleChange}
                 />
               </div>
-            </div>
-           
-            <div className="input-div pass">
-              <div className="i">
-                <i className="fas fa-lock"></i>
-              </div>
-              <div className="div">
+              <div className="form-group mt-4">
                 <input
+                  className="form-control"
                   type="email"
                   placeholder="Email"
                   name="email"
                   value={inputs.email}
                   onChange={handleChange}
                 />
+                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
               </div>
-            </div>
-
-            <div className="input-div one">
-              <div className="i">
-                <i className="fas fa-user"></i>
-              </div>
-              <div className="div">
+              <div className="form-group mt-4">
                 <input
+                className="form-control"
                   type="text"
                   name="department"
                   value={inputs.department}
@@ -105,13 +97,10 @@ function Signup() {
                   onChange={handleChange}
                 />
               </div>
-            </div>
-            <div className="form-group">
-              <label  className="text-light">
-                Gender
-              </label>
-              <div className="radio inline">
-                <input
+
+              <div className="form-group mt-4">
+                <label>Gender</label><br/>
+                 <input
                   className="inline"
                   type="radio"
                   id="radio-2"
@@ -124,7 +113,7 @@ function Signup() {
                   Male
                 </label>
               </div>
-              <div className="radio inline">
+              <div className="radio inline ">
               <input
                   className="inline"
                   type="radio"
@@ -137,10 +126,11 @@ function Signup() {
                 <label className="radio-label">
                   Female
                 </label>
+                
               </div>
-            </div>
-           
-                <select
+
+              <div className="form-group mt-4">
+              <select
                   name="userType"
                   value={inputs.userType}
                   onChange={handleChange}
@@ -150,27 +140,18 @@ function Signup() {
                   <option value="student">student</option>
                   <option value="tutor">tutor</option>
                 </select>
-              
-            
-            <div className="input-div one">
-              <div className="i">
-                <i className="fas fa-user"></i>
               </div>
-              <div className="div">
+              <div className="form-group mt-4">            
                 <input
+                  className="form-control"
                   type="password"
                   name="password"
                   placeholder="Password"
                   value={inputs.password1}
                   onChange={handleChange}
                 />
-              </div>
             </div>
-            <div className="input-div one">
-              <div className="i">
-                <i className="fas fa-user"></i>
-              </div>
-              <div className="div">
+            <div className="form-group mt-4">
                 <input
                   type="Password"
                   className={
@@ -183,15 +164,22 @@ function Signup() {
                   value={inputs.password2}
                   onChange={handleChange}
                 />
-              </div>
             </div>
-            <a onClick={() => navigate("/")}>already have an account?</a>
-            <p className="error">{inputs.message}</p>
-            <input className="btn" type="submit" onClick={handleSubmit} />
-          </form>
-        </div>
+            <a role="button" onClick={() => navigate("/")}>already have an account?</a>
+            <p className="error">{inputs.message}</p>             
+            <button type="submit" className="btn btn-success" onClick={handleSubmit}>SUBMIT</button>
+        </form>         
       </div>
     </div>
+  </div>
+          <div className="col-md-6">          
+            <figure>
+              <img src={ring}  class="img-fluid" alt="Responsive image" width='' />
+            </figure>          
+          </div>
+          </div>        
+          </div>                  
+    </section>
   );
 }
 

@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faUser} from '@fortawesome/free-solid-svg-icons'
 import {useDispatch } from 'react-redux';
 import {addStudent,selectCurrentClass} from '../../slices/dataSlice';
-import './AddStudent.css';
 import { useSelector } from "react-redux";
 
 

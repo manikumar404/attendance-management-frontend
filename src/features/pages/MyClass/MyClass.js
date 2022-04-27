@@ -1,5 +1,4 @@
 import React from "react";
-import "./MyClass.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCurrentClass,
@@ -14,6 +13,7 @@ import Header from "../../components/Header/Header";
 import { getAllAttendanceOfClass, postAttendance } from "../request";
 import { faFilePowerpoint, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+
 
 function MyClass() {
   const currentClass = useSelector(selectCurrentClass);
@@ -53,6 +53,7 @@ function MyClass() {
       })
       .catch((err) => console.log(err.response));
   };
+  
 
   return (
     <div>
