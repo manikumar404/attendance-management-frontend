@@ -62,10 +62,9 @@ export const dataSlice = createSlice({
       state.currentClass = { ...state.currentClass, students: updatedStudents };
     },
     addClass: (state, action) => {
-      state.user = {
-        ...state.user,
-        moduleList: [...state.user.moduleList, action.payload],
-      };
+      console.log(action.payload)
+      state.classes = [...state.classes, action.payload]
+      
     },
     setUser: (state, action) => {
       state.user = {...action.payload.user,

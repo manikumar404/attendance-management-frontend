@@ -40,34 +40,47 @@ function SingleClass({ index,moduleName,moduleCode,_id}) {
 
   return (
     
-    <div className='card'>         
-        <Row xs={1} md={2} className="g-4">
-        {Array.from({ length: 4 }).map((_, idx) => (
-            <Col>
-            <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
-                <Card.Body>
-                <Card.Title>
-                <div className = "class-container" onClick = {()=>selectThis(_id)}>
-                    <div>
-                        <h2>{moduleName}</h2>
-                    </div>
-                    <div>
-                        <p>Moudle code {moduleCode}</p>
-                    </div>
-                </div>
-                </Card.Title>
-                <Card.Text>
-                    <button onClick={()=>deleteClass(_id)} >Delete </button>
-                </Card.Text>
-                </Card.Body>
-            </Card>
-            </Col>
-        ))}
-        </Row>
+    // <div className='card'>         
+    //     <Row xs={1} md={2} className="g-4">
+    //     {Array.from({ length: 4 }).map((_, idx) => (
+    //         <Col>
+    //         <Card>
+    //             <Card.Img variant="top" src="holder.js/100px160" />
+    //             <Card.Body>
+    //             <Card.Title>
+    //             <div className = "class-container" onClick = {()=>selectThis(_id)}>
+    //                 <div>
+    //                     <h2>{moduleName}</h2>
+    //                 </div>
+    //                 <div>
+    //                     <p>Moudle code {moduleCode}</p>
+    //                 </div>
+    //             </div>
+    //             </Card.Title>
+    //             <Card.Text>
+    //                 <button onClick={()=>deleteClass(_id)} >Delete </button>
+    //             </Card.Text>
+    //             </Card.Body>
+    //         </Card>
+    //         </Col>
+    //     ))}
+    //     </Row>
 
     
-    </div>  
+    // </div>  Name
+    <div className="card text-center my-2">
+    <div className="card-header alert-success" onClick = {()=>selectThis(_id)}>
+    {moduleName}
+    </div>
+    <div className="card-body">
+      <h5 className="card-title">{moduleCode}</h5>
+      
+      <button href="#" className="btn btn-outline-danger" onClick={()=>deleteClass(_id)}>Delete Class</button>
+    </div>
+    <div className="card-footer text-muted">
+      2 days ago
+    </div>
+  </div>
     
       
   )  

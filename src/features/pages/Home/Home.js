@@ -21,8 +21,11 @@ import {Alert, Button, Modal, Form} from 'react-bootstrap';
 function Home() {
   const classes = useSelector(selectClasses);
   const [state, setState] = useState({
-    input: "",
+    moduleCode:'',
+    moduleName:''
   });
+  
+  const [error,setError] = useState()
   const authUser = useSelector(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,15 +35,8 @@ function Home() {
   const handleChange = (event) => {
     const name = event.target.name;
         const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-    setState({ ...state, input: event.target.value });
-    const handleSubmit = (event) => {
-      event.preventDefault();
-     
-      addClassPost(inputs,currentUser._id).then(res => dispatch(addClass(res.data)))
-      .catch(err => setInputs({...inputs,error:err.response?.data}))
+        setState(values => ({...values, [name]: value}))
     
-    }
   };
 
 
@@ -63,20 +59,17 @@ function Home() {
   };
 
 //  Modal
-    const currentUser = useSelector(user)
-    const [ setInputs] = useState({moduleName:'',moduleCode:''});    
+    const currentUser = useSelector(user)  
     const handleSubmit = (event) => {
       event.preventDefault();     
-      addClassPost(inputs,currentUser._id).then(res => dispatch(addClass(res.data)))
-      .catch(err => setInputs({...inputs,error:err.response?.data}))    
+      addClassPost(state,currentUser._id).then(res => dispatch(addClass(res.data)))
+      .catch(err => setError(err.response?.data))
     }
   
   const {
     name
     } = useSelector(user);
-    const [inputs] = useState({
-      name
-  });
+    
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -84,8 +77,9 @@ function Home() {
   
   console.log('render')
   useEffect(()=>{
+    getClasses()
     console.log('resource type changed')
-  }, [SingleClass]
+  }, []
   )
 
   return (
@@ -119,41 +113,45 @@ function Home() {
               </Modal.Header>
               <Modal.Body>
               <form className='Acard' onSubmit={handleSubmit}>
-                <p>{inputs.error}</p>
+               
                 <form>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="formGroupExampleInput">Module Code</label>
                   <input 
                 className='form-control'
                   type="text" 
                   name="moduleCode" 
                   placeholder='module code'
-                  value={inputs.moduleCode } 
+                  value={state.moduleCode } 
                   onChange={handleChange}
                 />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label for="formGroupExampleInput2">Module Name</label>
                   <input 
                   className='form-control'
                   type="text" 
                   name="moduleName" 
                   placeholder='module name'
-                  value={inputs.moduleName} 
+                  value={state.moduleName} 
                   onChange={handleChange}
                 />
-             </div>
+             </div>{
+             error?.length>0&& <div className="alert alert-danger my-2">{error}</div>
+
+             }
+             
              </form><br/>
-             <input variant="outline-success " className='btn btn-outline-success' type="btn" value="SUBMIT" />
+             <button variant="outline-success " className='btn btn-outline-success' type="btn" onSubmit={handleSubmit} >submit</button>
              </form>
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                   Close
                 </Button>
-                <Button variant="success" onClick={handleClose}>
+                {/* <Button variant="success" onClick={handleClose}>
                   Save Changes
-                </Button>
+                </Button> */}
               </Modal.Footer>
             </Modal>
     </>
@@ -162,10 +160,10 @@ function Home() {
 
      
 
-      <div className="d-grid gap-2 col-6 mx-auto">
+      {/* <div className="d-grid gap-2 col-6 mx-auto">
         <button className="btn btn-success" type="button" onClick={getClasses}>SHOW MY CLASSES</button>
-      </div>           
-      {classes.length>0&&classes.map((clas, index) => (
+      </div>            */}
+      {classes.length >0 && classes.map((clas, index) => (
         <SingleClass key={clas._id} index={index} {...clas} />
       ))}
 

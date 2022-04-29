@@ -81,8 +81,8 @@ function Login() {
       </div>      <br/>
      
       {/* <!-- Email input --> */}
-     <div class="form-outline mb-4">
-      <label class="form-label" for="form2Example1">Email address</label>
+     <div className="form-outline mb-4">
+      <label className="form-label" for="form2Example1">Email address</label>
       <input                
         type="email"
         onFocus = {focusE}
@@ -125,7 +125,7 @@ function Login() {
     </div>
     <div class="col">
       {/* <!-- Simple link --> */}
-      <a href="#!">Forgot password?</a>
+      <button className = "btn btn-link"onClick={() => navigate("/signup")} role="button">dont have account?</button>
     </div>
   </div>  
 
@@ -134,8 +134,11 @@ function Login() {
 
   {/* <!-- Register buttons --> */}
   <div className="text-center">
-    <a onClick={() => navigate("/signup")} role="button">dont have account?</a>
-    <p className="error">{inputs.message}</p>    
+   
+  {
+             inputs?.message?.length>0&& <div className="alert alert-danger my-2">{inputs.message}</div>
+
+             }
   </div>
 </form>
 </div>
