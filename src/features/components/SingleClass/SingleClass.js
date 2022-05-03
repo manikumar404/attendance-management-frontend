@@ -75,7 +75,7 @@ function SingleClass({ index,moduleName,moduleCode,_id}) {
     <div className="card-body">
       <h5 className="card-title">{moduleCode}</h5>
       
-      <button href="#" className="btn btn-outline-danger" onClick={()=>deleteClass(_id)}>Delete Class</button>
+      <button className="btn btn-outline-danger" onClick={()=>deleteClass(_id)}>Delete Class</button>
     </div>
     <div className="card-footer text-muted">
       2 days ago
