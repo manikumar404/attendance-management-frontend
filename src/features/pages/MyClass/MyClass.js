@@ -192,9 +192,9 @@ function MyClass() {
       <button
         type="button"
         className="btn btn-outline-success float-end mx-2"
-        onClick={handleShow}
+        onClick={save}
       >
-        Add students
+      Save Record
       </button>
 
       <br />

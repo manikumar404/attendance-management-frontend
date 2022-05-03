@@ -46,20 +46,20 @@ function StudentHome() {
       </Header>
       <br />
       {classes.map((clas, index) => (
-        <div key = {clas._id} className="cards">
-          <div className="card">
-            <div
-              className="single-class-container"
-              key={index}
-              onClick={() =>
-                select(clas)
-              }
-            >
-              <h3>{clas.moduleName}</h3>
-              <p>{clas.moduleCode}</p>
-            </div>
-          </div>
-        </div>
+       
+        <div className="card text-center my-2" key = {clas._id}  onClick={() => select(clas)}>
+    <div className="card-header alert-success" >
+    {clas.moduleName}
+    </div>
+    <div className="card-body">
+      <h5 className="card-title">{clas.moduleCode}</h5>
+      
+  
+    </div>
+    <div className="card-footer text-muted">
+      2 days ago
+    </div>
+  </div>
       ))}
     </div>
   );
