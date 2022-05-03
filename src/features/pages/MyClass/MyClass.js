@@ -100,6 +100,14 @@ function MyClass() {
     addStudentPost(inputs)
       .then((res) => {
         dispatch(addStudent(res.data));
+        const studentsIds = currentClass.students.map(
+          (studentx) => studentx._id
+        );
+        const stdList = res.data.filter(
+          (item) => !studentsIds.includes(item._id)
+        );
+
+        setStudentsList(stdList);
 
         console.log(res.data);
       })
