@@ -64,7 +64,7 @@ function Profile() {
     </Card.Footer>
   </Card>
 </CardGroup> */}
-
+{/* 
 <Card className="text-center">
   <Card.Header><b>My Profile</b></Card.Header>
   <Card.Body>
@@ -103,7 +103,45 @@ function Profile() {
         </Link>
   </Card.Body>
   <Card.Footer className="text-muted">@attendance management system</Card.Footer>
-</Card>
+</Card> */}
+<div className="row">
+  <div className="col col-md-2 col-lg-3">
+
+  </div>
+  <div className="col col-md-10 col-lg-6">
+  <div className="card text-center my-2 border border-2 border-success rounded ">
+    <div className="card-header alert-success" >
+    <h3 className="card-text">
+      {name}`s Profile
+    </h3>
+    
+    </div>
+    <div className="card-body ">
+      <h5 className="card-title">Name : {name}</h5>
+      <h5 className="card-title">Gender : {gender}</h5>
+      <h5 className="card-title">Department : {department}</h5>
+     
+      <div className="btn-group">
+      <button className="btn btn-outline-success" >Edit Profile</button>
+      <button className="btn btn-outline-danger" >Change Password</button>
+
+      </div>
+      <div className="card-footer text-muted">
+      {email}
+    </div>
+      
+    
+    </div>
+   
+  </div>
+
+  </div>
+  <div className="col col-md-2 col-lg-3">
+
+  </div>
+
+</div>
+
 </div>
 
 

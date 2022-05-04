@@ -5,14 +5,14 @@ import {useNavigate} from 'react-router-dom'
 import {axiosDeleteClassTutor, selectThisClass} from '../../pages/request'
 import {Row,Col, Card} from 'react-bootstrap'
 
-function SingleClass({ index,moduleName,moduleCode,_id}) {
+function SingleClass({ index,moduleName,moduleCode,_id,createdAt}) {
     const navigate = useNavigate()
     const currentUser = useSelector(user)   
     const currentClass = useSelector(selectCurrentClass)
     const dispatch = useDispatch()
     const selectThis = (moduleId)=>{
         selectThisClass(moduleId,currentUser._id).then(res=> {
-            console.log(res.data)
+            
             dispatch(setCurrentClass({
                 moduleId:moduleId,
                 tutorId:currentUser._id,
@@ -78,7 +78,7 @@ function SingleClass({ index,moduleName,moduleCode,_id}) {
       <button className="btn btn-outline-danger" onClick={()=>deleteClass(_id)}>Delete Class</button>
     </div>
     <div className="card-footer text-muted">
-      2 days ago
+      {createdAt.split('T')[0]}
     </div>
   </div>
     

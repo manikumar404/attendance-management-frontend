@@ -34,6 +34,7 @@ function MyClass() {
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
   const [studentsList, setStudentsList] = useState([]);
+  const [messages,setMessages]=useState({save:'Save Record'})
 
   const putPresent = (id_, index) => {
     dispatch(putAttendance({ index: index, status: "P" }));
@@ -51,6 +52,7 @@ function MyClass() {
       .catch((err) => console.log(err.response.data));
   };
   const save = () => {
+    setMessages({...messages,save:"Saving ..."})
     const attendanceData = [];
     for (var i = 0; i < currentClass.students.length; i++) {
       attendanceData.push({
@@ -62,7 +64,7 @@ function MyClass() {
     }
     postAttendance(attendanceData, authUser._id)
       .then((res) => {
-        console.log(res.data);
+        setMessages({...messages,save:"Record Saved"})
       })
       .catch((err) => console.log(err.response));
   };
@@ -142,7 +144,7 @@ function MyClass() {
   return (
     <div>
       <Header>
-        {
+        {/* {
           <div className="header_options" onClick={allRecord}>
             <span className="opt1">All</span>
             <span className="opt2">Records</span>
@@ -171,13 +173,13 @@ function MyClass() {
             <span className="opt1">Generate</span>
             <span className="opt2">QR Code</span>
           </div>
-        }
-        {
+        } */}
+        {/* {
           <div className="header_options" onClick={() => navigate("/")}>
             <span className="opt1">{authUser.name}</span>
             <span className="opt2">sign out</span>
           </div>
-        }
+        } */}
       </Header>
       <br />
 
@@ -193,8 +195,7 @@ function MyClass() {
         type="button"
         className="btn btn-outline-success float-end mx-2"
         onClick={save}
-      >
-      Save Record
+      >{messages.save}
       </button>
 
       <br />

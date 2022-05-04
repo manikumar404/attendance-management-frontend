@@ -83,7 +83,7 @@ function AdminHome() {
 
     createStudentsToken(studentToken.token)
       .then((res) => setStudentToken({...studentToken,success:'Token Updated Successfully!',error:''}))
-      .catch((err) => setStudentToken({...studentToken,error:'Some error occoured!',success:''}));
+      .catch((err) => setStudentToken({...studentToken,error:'Some error occured!',success:''}));
   };
   const handleSubmitTutorsToken = (event) => {
     event.preventDefault();
@@ -91,7 +91,7 @@ function AdminHome() {
 
     createTutorsToken(tutorToken.token)
       .then((res) => setTutorToken({...tutorToken,success:'Token Updated Successfully!',error:''}))
-      .catch((err) => setTutorToken({...tutorToken,error:'Some error occoured!',success:''}));
+      .catch((err) => setTutorToken({...tutorToken,error:'Some error occured!',success:''}));
   };
   return (
     <div className="admin">

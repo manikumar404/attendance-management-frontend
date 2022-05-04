@@ -98,12 +98,12 @@ function SingleStudent() {
   return (
     <div>
       <Header>
-        {
+        {/* {
           <div className="header_options" onClick={() => navigate('/')}>
             <span className="opt1">{authUser?.name}</span>
             <span className="opt2">sign out</span>
           </div>
-        }
+        } */}
 
       </Header>
       <div>
@@ -121,7 +121,7 @@ function SingleStudent() {
           </div>
           <div className="col col-md-4">
             <DoughnoutChart data={data2} />
-            <p className='text-center'>Absentese Allowable</p>
+            <p className='text-center'>Absentees Allowable</p>
 
           </div>
         </div>

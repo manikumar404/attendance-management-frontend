@@ -6,6 +6,7 @@ import {user,selectCurrentClass,deleteStudentFromState, setCurrentClass,} from '
 import Header from '../../components/Header/Header';
 import { updateClass,axiosDeleteStudent,deleteClass} from '../request';
 import { useNavigate } from 'react-router-dom';
+import {Accordion} from 'react-bootstrap';
 
 function EditClassDetails() {
    const  { moduleName,moduleCode,moduleId,students,tutorId}=useSelector(selectCurrentClass)
@@ -14,7 +15,7 @@ function EditClassDetails() {
     const dispatch = useDispatch()
     const currentUser = useSelector(user)
     const [inputs, setInputs] = useState({ moduleName,moduleCode});
-    const [componentsState,setComponentsState]=useState({showStdList:true})
+    const [componentsState,setComponentsState]=useState({showStdList:true,error:'',success:''})
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -24,12 +25,16 @@ function EditClassDetails() {
       const handleSubmit = (event) => {
         event.preventDefault();
         console.log(inputs)
+        setComponentsState({...componentsState,error:'',success:'Updating ...'})
        
-        updateClass(inputs,moduleId,tutorId).then(res => dispatch(setCurrentClass(res.data)))
-        .catch(err => setInputs({...inputs,error:err.response?.data}))
+        updateClass(inputs,moduleId,tutorId).then(res => {
+          setComponentsState({...componentsState,error:'',success:'Successfully Updated !'})
+          dispatch(setCurrentClass(res.data))
+        })
+        .catch(err =>setComponentsState({...componentsState,success:'',error:err.response.data || 'Some error ocurred!'}) )
       
       }
-
+//
       const showAllStd=()=>{
         console.log("hekllo")
      setComponentsState({...componentsState,showStdList:!componentsState.showStdList})
@@ -56,51 +61,78 @@ function EditClassDetails() {
         }
 
     </Header>
-   <form className='Ecard' onSubmit={handleSubmit}>
-   <h2 className='Edit-text'>Edit Class</h2>
-   <p>{inputs.error}</p>
-   <label className='l2'>Module Name:
-   <input 
-     className='Ebox'     
-     type="text" 
+  
+ <div className ="row">
+   <div className='col-lg-4 col-md-3'>
+   </div>
+   <div className='col-lg-4 col-md-6 p-4'>
+   <form className ="border rounded py-5 px-3 shadow" onSubmit={handleSubmit}>
+   <h4  className="form-label text-center mb-4">Class Details</h4>
+  <div className="mb-3">
+    <p  className="form-label">Module Name</p>
+    <input  className="form-control" type="text" 
      name="moduleName" 
      value={inputs.moduleName || ""} 
-     onChange={handleChange}
-   />
-   </label><br/>
-
-   <label className='l2'>Module Code:
-   <input 
-     className='Ebox'
-     type="text" 
+     onChange={handleChange} id="exampleInputEmail1" aria-describedby="emailHelp"/>
+    
+  </div>
+  <div class="mb-3">
+    <p  className="form-label">Module Code</p>
+    <input type="text" 
      name="moduleCode" 
      value={inputs.moduleCode || ""} 
-     onChange={handleChange}
-   />
-   </label><br/>
+     onChange={handleChange} className="form-control" id="exampleInputPassword1"/>
+  </div>
+  {
+             componentsState?.error?.length>0&& <div className="alert alert-danger my-2">{componentsState.error}</div>
+             
+             }
+             {
+             componentsState.success.length>0&& <div className="alert alert-success my-2">{componentsState.success}</div>
+             
+             }
   
-  
-     <input  className='ecbtn' type="submit" />
- </form>
- 
-<div className='RemoveCard'>
- <div className='delete-std-btn' onClick={()=>showAllStd()}>
-  Remove Students
- </div>
- <div className={componentsState.showStdList ? 'invisible':'visible'}>
-   {students.map(std=>
-   <div className='students-list'>
-   <p>{std.name}</p>
-   <p>{std.id}</p>
-   <p>{std.gender}</p>
-   <p>{std.email}</p>
-   <button className='delete-btn' onClick={()=>deleteStd(std._id)}>Delete</button>
+  <button type="submit" className="btn btn-success">Submit</button>
+</form>
 
    </div>
-   
-   )}
+   <div className='col-lg-4 col-md-3'>
    </div>
  </div>
+ 
+ 
+ <div className ="row">
+ <div className = "col-md-3 col-lg-4"></div>
+   <div className = "col-md-6 col-lg-4">
+   <Accordion defaultActiveKey="1" flush style={{margin:"0",padding:"0"}}>
+  <Accordion.Item eventKey="0">
+    <Accordion.Header className = "alert-success" onClick={()=>showAllStd()}>View Students</Accordion.Header>
+    <Accordion.Body>
+    {students.map(std=>
+      <div className="card">
+  <div className="card-header">
+    {std.name}
+  </div>
+  <div className="card-body">
+    <h5 className="card-title">{std.email}</h5>
+    <p className="card-text">{std.gender}</p>
+    <button  className="btn btn-outline-danger" onClick={()=>deleteStd(std._id)} >deleteStudent</button>
+  </div>
+  <div className = "col-md-3 col-lg-4"></div>
+</div>
+    )
+
+    }
+   
+      
+    </Accordion.Body>
+  </Accordion.Item>
+ 
+</Accordion>
+   </div>
+ </div>
+
+
  </div>
   )
 }

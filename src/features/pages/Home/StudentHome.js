@@ -57,7 +57,7 @@ function StudentHome() {
   
     </div>
     <div className="card-footer text-muted">
-      2 days ago
+      {clas.createdAt.split('T')[0]}
     </div>
   </div>
       ))}
