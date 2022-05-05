@@ -21,6 +21,12 @@ import { faFilePowerpoint, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Alert, Button, Modal, Form } from "react-bootstrap";
 import { useState } from "react";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import lo from "../../../assets/login.png";
 
 function MyClass() {
   const currentClass = useSelector(selectCurrentClass);
@@ -183,6 +189,87 @@ function MyClass() {
       </Header>
       <br />
 
+
+<div className="card m-4 p-4">
+<h3 className="pb-2 border-bottom">Attendance Management Actions</h3>
+<div className="row">
+  <div className="col-md-4">
+  <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={lo}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <button className="btn btn-link" onClick={allRecord}>
+              View All Record
+            </button>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+          View all attendance records
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card><br/>
+  </div>
+  <div className="col-md-4">
+  <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={lo}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <button
+              className="btn btn-link"
+              onClick={() => navigate("/edit-class-details")}
+            >
+              Edit Class Details
+            </button>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+          Edit name, module code and students in a class.
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card><br/>
+  </div>
+  <div className="col-md-4">
+  <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={lo}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <button
+              className="btn btn-link"
+              onClick={() => navigate("/generate-qr")}
+            >
+              Generate QR Code
+            </button>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+          Generate a QR code that can be scanned wit Attendance tracker app.
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  </div>
+</div>
+</div>
+
+
+      
       {/* <AddStudent className="in-line" id={currentClass._id} /> */}
       <button
         type="button"
@@ -280,6 +367,8 @@ function MyClass() {
                 </Button> */}
         </Modal.Footer>
       </Modal>
+
+      <div className="card m-4 p-4">
       <table className="table">
         <thead className="thead-dark">
           <tr>
@@ -327,43 +416,6 @@ function MyClass() {
         </tbody>
       </table>
 
-      <div className="container px-4 py-5 " id="featured-3">
-        <h3 className="pb-2 border-bottom">Attendance Management Actions</h3>
-        <div className="row g-4 py-5 row-cols-1 row-cols-lg-3">
-          <div className="feature col">
-            <div className="feature-icon bg-primary bg-gradient"></div>
-            <h4>All Records</h4>
-            <p>View all attendance records</p>
-            <button className="btn btn-link" onClick={allRecord}>
-              View All
-            </button>
-          </div>
-          <div className="feature col">
-            <div className="feature-icon bg-primary bg-gradient"></div>
-            <h3>Edit Class Details</h3>
-            <p>Edit name, module code and students in a class</p>
-            <button
-              className="btn btn-link"
-              onClick={() => navigate("/edit-class-details")}
-            >
-              Edit
-            </button>
-          </div>
-
-          <div className="feature col">
-            <div className="feature-icon bg-primary bg-gradient"></div>
-            <h3>Generate QR code</h3>
-            <p>
-              Generate a QR code that can be scanned wit Attendance tracker app
-            </p>
-            <button
-              className="btn btn-link"
-              onClick={() => navigate("/generate-qr")}
-            >
-              Generate
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );

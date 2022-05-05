@@ -9,6 +9,7 @@ import logo from "../../../assets/logo.png";
 //import wave from "../../../assets/wave.png";
 import ring from "../../../assets/login.png";
 
+
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

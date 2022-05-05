@@ -40,16 +40,8 @@ function AllAttendance() {
   };
   return (
     <div>
-      <Header>
-        {
-          <div className="header_options" onClick={()=>navigate('/')}>
-            <span className="opt1">{authUser.name}</span>
-            <span className="opt2">sign out</span>
-          </div>
-        }
-      </Header>
-     
-
+      <Header/>
+<div className="m-4">
         <table className="table table-hover">
           <thead className="thead-dark">
             <tr>
@@ -62,9 +54,9 @@ function AllAttendance() {
           </thead>
           <tbody>
             {attendanceRecord.map((item, index) => (
-              <tr
+              <tr              
                 key={index}
-                className="record-container"
+                className="record-container" 
                 onClick={() => selectThis(index)}
               >
                 <td>{item.name}</td>
@@ -77,7 +69,7 @@ function AllAttendance() {
           </tbody>
         </table>
       </div>
-   
+      </div>
   );
 }
 

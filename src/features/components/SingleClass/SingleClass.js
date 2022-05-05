@@ -69,7 +69,8 @@ function SingleClass({ index,moduleName,moduleCode,_id,createdAt}) {
     
     // </div>  Name
     <div className="card text-center my-2">
-    <div className="card-header alert-success" onClick = {()=>selectThis(_id)}>
+    <div className="card-header alert-success "  
+    type="button" onClick = {()=>selectThis(_id)}>
     {moduleName}
     </div>
     <div className="card-body">
