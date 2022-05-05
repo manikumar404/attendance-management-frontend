@@ -29,6 +29,7 @@ import { CardActionArea } from '@mui/material';
 import lo from "../../../assets/login.png";
 import absent from "../../../assets/absent.png";
 import allrecord from "../../../assets/allrecord.png";
+import qrcode from "../../../assets/qrcode.png";
 
 function MyClass() {
   const currentClass = useSelector(selectCurrentClass);
@@ -241,7 +242,7 @@ function MyClass() {
         <CardMedia
           component="img"
           height="140"
-          image={lo}
+          image={qrcode}
           alt="green iguana"
         />
         <CardContent>
