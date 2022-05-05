@@ -36,18 +36,11 @@ function StudentHome() {
 
   return (
     <div>
-      <Header>
-        {
-          <div className="header_options" onClick={() => navigate("/")}>
-            <span className="opt1">{authUser?.name}</span>
-            <span className="opt2">sign out</span>
-          </div>
-        }
-      </Header>
+      <Header/>
       <br />
       {classes.map((clas, index) => (
        
-        <div className="card text-center my-2" key = {clas._id}  onClick={() => select(clas)}>
+        <div className="card text-center my-2" type="button" key = {clas._id}  onClick={() => select(clas)}>
     <div className="card-header alert-success" >
     {clas.moduleName}
     </div>

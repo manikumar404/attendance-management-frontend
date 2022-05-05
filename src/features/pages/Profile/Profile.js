@@ -131,7 +131,7 @@ function Profile() {
                 className='form-control mb-3'
                   type="password" 
                   name="oldPassword" 
-                  placeholder='Enter password'
+                  placeholder='New password'
                   value={passwords.oldPassword } 
                   onChange={passwordFormChange}
                 />

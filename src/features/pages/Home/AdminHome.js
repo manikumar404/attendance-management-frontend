@@ -16,7 +16,15 @@ import Header from "../../components/Header/Header";
 import { useSelector } from "react-redux";
 import { user } from "../../slices/dataSlice";
 import { useNavigate } from "react-router-dom";
-import { Button, Modal} from "react-bootstrap";
+import { Button, Modal, Accordion} from "react-bootstrap";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import pas from "../../../assets/editpass.png";
+import del from "../../../assets/delete.png";
+import up from "../../../assets/update.png";
 function AdminHome() {
   const [allTutors, setAllTutors] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -103,17 +111,60 @@ function AdminHome() {
           </div>
         } */}
       </Header>
-      <button type="button" className="btn btn-outline-primary" onClick={()=>setResetPassword({...resetPassword,show:true})} >Password Recovery</button>
-    {/* <ResetPassword /> */}
-      <br />
-      <button type="button" className="btn btn-outline-primary" onClick={()=>setStudentToken({...studentToken,show:true})}>Create Students Token</button>
-      {/* <CreateStudentsToken /> */}
-      <br />
-      <button type="button" className="btn btn-outline-primary" onClick={()=>setTutorToken({...tutorToken,show:true})}>Create Tutors Token</button>
-      {/* <CreateTutorsToken /> */}
-      <br />
-
-
+<div className="row p-5">
+  <div className="col-md-4">
+      <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={pas}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">         
+          <button type="button" className="btn btn-outline-success" onClick={()=>setResetPassword({...resetPassword,show:true})} >Password Recovery</button>
+          </Typography>      
+        </CardContent>
+      </CardActionArea>
+    </Card><br/>
+    </div>
+    <div className="col-md-4">
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={up}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <button type="button" className="btn btn-outline-success" onClick={()=>setStudentToken({...studentToken,show:true})}>Create Students Token</button>
+          </Typography>         
+        </CardContent>
+      </CardActionArea>
+    </Card><br/>
+    </div>
+    <div className="col-md-4">
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={up}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <button type="button" className="btn btn-outline-success "  onClick={()=>setTutorToken({...tutorToken,show:true})}>Create Tutors Token</button>
+          </Typography>          
+        </CardContent>
+      </CardActionArea>
+    </Card>
+    </div>
+    </div>
+      
       <Modal show={resetPassword.show} onHide={()=>setResetPassword({...resetPassword,show:false,error:'',success:''})}>
               <Modal.Header closeButton>
                 <Modal.Title>Password Recovery</Modal.Title>
@@ -163,18 +214,13 @@ function AdminHome() {
               </Modal.Footer>
             </Modal>
 
-
-
             <Modal show={studentToken.show} onHide={()=>setStudentToken({...studentToken,show:false})}>
               <Modal.Header closeButton>
                 <Modal.Title>Reset Students Token</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-              <form className='Acard' onSubmit={handleSubmitToken}>
-               
-                
-                <div className="form-group">
-                 
+              <form className='Acard' onSubmit={handleSubmitToken}>               
+                <div className="form-group">                 
                   <input 
                 className='form-control my-4'
                   type="text" 
@@ -191,10 +237,7 @@ function AdminHome() {
              {
              studentToken.success.length>0&& <div className="alert alert-success my-2">{studentToken.success}</div>
              
-             }
-               
-             
-         
+             }       
             
              <br/>
              <button variant="outline-success " className='btn btn-outline-success' type="btn" onSubmit={handleSubmitToken} >submit</button>
@@ -207,15 +250,12 @@ function AdminHome() {
               </Modal.Footer>
             </Modal>
 
-
-
             <Modal show={tutorToken.show} onHide={()=>setTutorToken({...tutorToken,show:false})}>
               <Modal.Header closeButton>
                 <Modal.Title>Reset Tutors Token</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-              <form className='Acard' onSubmit={handleSubmitTutorsToken}>
-               
+              <form className='Acard' onSubmit={handleSubmitTutorsToken}>            
              
                 <div className="form-group">
                  
@@ -254,13 +294,6 @@ function AdminHome() {
             </Modal>
 
 
-
-
-
-
-
-
-
       <div className="amcard">
         <div className="drop-down" onClick={fetchAllTokens}>
           All tokens
@@ -291,71 +324,104 @@ function AdminHome() {
         </div>
       </div>
 
-      <div className="amcard">
-        <div className="drop-down" onClick={fetchClasses}>
-          All classes
-        </div>
+
+
+<div className="card m-4 p-4">
+<div className="row">
+  <div className="col-md-4">
+<Accordion defaultActiveKey="0">
+  <Accordion.Item eventKey="1">
+  <div className="drop-down" onClick={fetchClasses}>
+    <Accordion.Header>All Classes</Accordion.Header>
+    </div>
+    <Accordion.Body>   
         <div>
           {classes.map((cls) => (
             <div className="single-item">
               <p>{cls.className}</p>
               <p>{cls.moduleCode}</p>
               <p>{cls.createdAt}</p>
-              <button
+              <Button
                 className="btn-delete"
+                variant="outline-danger"
                 onClick={() => deleteClass(cls._id)}
               >
                 {" "}
                 Delete{" "}
-              </button>
+              </Button>
+              <hr/>
             </div>
           ))}
         </div>
-      </div>
+    </Accordion.Body>
+  </Accordion.Item>
+</Accordion>
+</div>
 
-      <div className="tutor-block">
-        <div className="drop-down" onClick={fetchTutors}>
-          All Tutors
-        </div>
+<div className="col-md-4">
+<Accordion defaultActiveKey="0">
+  <Accordion.Item eventKey="1">
+  <div className="drop-down" onClick={fetchTutors}>
+    <Accordion.Header>All Tutors</Accordion.Header>
+  </div>
+    <Accordion.Body>        
         <div>
           {allTutors.map((item) => (
             <div className="single-item">
               <p>{item.name}</p>
               <p>{item.email}</p>
               <p>{item.gender}</p>
-              <button
+              <Button
                 className="btn-delete"
+                variant="outline-danger"
                 onClick={() => deleteTutor(item._id)}
               >
                 Delete
-              </button>
+              </Button>
+              <hr/>
             </div>
           ))}
         </div>
-      </div>
-      <div className="student-block">
-        <div className="drop-down" onClick={fetchStudents}>
-          All Students
-        </div>
+    </Accordion.Body>
+  </Accordion.Item>
+</Accordion>
+</div>
+<div className="col-md-4">
+<Accordion defaultActiveKey="0">
+  <Accordion.Item eventKey="1">
+  <div className="drop-down" onClick={fetchStudents}>
+    <Accordion.Header>All Students</Accordion.Header>
+    </div>
+    <Accordion.Body>        
         <div>
           {allStudents.map((item) => (
             <div className="single-item">
               <p>{item.name}</p>
               <p>{item.email}</p>
               <p>{item.gender}</p>
-              <button
+              <Button
                 className="btn-delete"
+                variant="outline-danger"
                 onClick={() => deleteStudent(item._id)}
               >
                 Delete
-              </button>
+              </Button>
+              <hr/>
             </div>
           ))}
         </div>
+    </Accordion.Body>
+  </Accordion.Item>
+</Accordion>
+</div>
+   
+      
       </div>
+    </div>
     </div>
   );
 }
+
 
 function ResetPassword(props) {
   const [email, setEmail] = useState("");
