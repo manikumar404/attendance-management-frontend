@@ -45,7 +45,7 @@ function Profile() {
     if (passwords.oldPassword === passwords.newPassword) {
       updatePassword(passwords, _id)
         .then((res) => setShow({...show,error:'',success:'Password updated successfully!'}))
-        .catch((err) => setShow({...show,error:err.res?.data,success:''}));
+        .catch((err) => setShow({...show,error:err.res?.data || "Invalid Input!",success:''}));
     } else {
       setShow({...show,error:'Password did not match!',success:''})
     }

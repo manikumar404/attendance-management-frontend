@@ -24,7 +24,12 @@ function QRcode() {
       setState({disable:'',enable:"Enabling ..."})
       changeClassProperty(true,authUser._id,currentClass.moduleId).then(res =>  setState({disable:'',enable:"QR code is enabled"})).catch(err => console.lgo(err.response))
     }
-   
+    const refreshAttendanceFromApp= ()=>{
+     
+      setState({disable:'',enable:"Refreshing ..."})
+      changeClassProperty(true,authUser._id,currentClass.moduleId).then(res =>  setState({disable:'',enable:""})).catch(err => console.lgo(err.response))
+    }
+
   return (
     <div>
     <Header>
@@ -42,6 +47,8 @@ function QRcode() {
     <button className='btn btn-danger' onClick={disableAttendanceFromApp}>Disable App Attendance</button>
     
     <button className ="btn btn-success" onClick={enableAttendanceFromApp}>Enable App Attendance</button>
+    <button className ="btn btn-info" onClick={refreshAttendanceFromApp}>Refresh QR Code</button>
+
 
   
 </div>
