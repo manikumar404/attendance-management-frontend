@@ -39,7 +39,7 @@ function ProfileEdit() {
     updateUserDetail(inputs, _id)
       .then((res) => {
         setInputs({ ...inputs, success:'Updated Successfully!' ,error:''})
-        dispatch(updateUser(res.data));
+        dispatch(updateUser({name:inputs.name,email:inputs.email,gender:inputs.gender,department:inputs.department}));
       })
       .catch((err) => setInputs({ ...inputs, error: err.response?.data }));
   };

@@ -37,13 +37,16 @@ function MyClass() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  const [error, setError] = useState("");
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
   const [studentsList, setStudentsList] = useState([]);
   const [messages,setMessages]=useState({save:'Save Record'})
+
+  const [message,setMessage] = useState({error:'',success:''})
+
 
   const putPresent = (id_, index) => {
     dispatch(putAttendance({ index: index, status: "P" }));
@@ -80,12 +83,13 @@ function MyClass() {
   const handleChangeEmail = (event) => {
     const value = event.target.value;
     setEmail(value);
-    if (error.length > 0) {
-      setError("");
+    if (message.error.length > 0) {
+      setMessage({success:"",error:""})
     }
   };
 
   const handleSubmitEmail = (event) => {
+    setMessage({success:"Adding Student ...",error:""})
     event.preventDefault();
     const inputs = {
       email,
@@ -96,11 +100,13 @@ function MyClass() {
 
     addStudentPost(inputs)
       .then((res) => {
+        setMessage({success:"Student Added successfully!",error:""})
         dispatch(addStudent(res.data));
       })
-      .catch((err) => setError(err.response.data));
+      .catch((err) => setMessage({success:"",error:err.response.data || "Error ocurred!"}));
   };
   const onClickStudent = (email) => {
+    setMessage({success:"Adding Student ...",error:""})
     const inputs = {
       email,
       moduleId: currentClass.moduleId,
@@ -110,6 +116,7 @@ function MyClass() {
 
     addStudentPost(inputs)
       .then((res) => {
+        setMessage({success:"Student Added successfully!",error:""})
         dispatch(addStudent(res.data));
         const studentsIds = currentClass.students.map(
           (studentx) => studentx._id
@@ -122,22 +129,33 @@ function MyClass() {
 
         console.log(res.data);
       })
-      .catch((err) => setError(err.response?.data))
+      .catch((err) => setMessage({success:"",error:err.response.data || "Error ocurred!"}))
       
   };
   const handleChangeDepartment = (event) => {
     const value = event.target.value;
     setDepartment(value);
-    if (error.length > 0) {
-      setError("");
+    if (message.error.length > 0) {
+      setMessage({success:"",error:""})
     }
   };
 
   const handleSubmitDepartment = (event) => {
     event.preventDefault();
+    setMessage({success:"Searching ...",error:""})
 
     getAllStudentsByDepartment(currentClass.tutorId, department)
       .then((res) => {
+
+        if(res.data.length<1){
+          setMessage({success:"",error:"No student found with given department!"})
+
+        }
+        else{
+          setMessage({success:"",error:""})
+
+        }
+        setMessage({success:"",error:""})
         const studentsIds = currentClass.students.map(
           (studentx) => studentx._id
         );
@@ -147,7 +165,7 @@ function MyClass() {
 
         setStudentsList(stdList);
       })
-      .catch((err) => setError(err.response?.data));
+      .catch((err) => setMessage({success:"",error:err.response.data || "Error ocurred!"}));
   };
 
   return (
@@ -293,7 +311,7 @@ function MyClass() {
                     onChange={handleChangeEmail}
                     name="enter student email"
                     value={email}
-                    placeholder="Module code"
+                    placeholder="Enter email"
                   />
                   <p>OR search students by group and add</p>
                 </div>
@@ -319,9 +337,14 @@ function MyClass() {
                   />
                 </div>
 
-                {error?.length > 0 && (
-                  <div className="alert alert-danger my-2">{error}</div>
-                )}
+                {
+             message.error?.length>0&& <div className="alert alert-danger my-2">{message.error}</div>
+
+             }
+             {
+             message.success?.length>0&& <div className="alert alert-success my-2">{message.success}</div>
+
+             }
               </form>
               <br />
               <button
@@ -334,6 +357,7 @@ function MyClass() {
               </button>
             </form>
             <div>
+           
               {studentsList.map((student) => (
                 <div class="list-group my-2">
                   <button

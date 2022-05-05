@@ -25,7 +25,7 @@ function Home() {
     moduleName:''
   });
   
-  const [error,setError] = useState()
+  const [message,setMessage] = useState({error:'',success:''})
   const authUser = useSelector(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,6 +39,12 @@ function Home() {
     
   };
 
+  const handleResponse=(data)=>{
+    setMessage({success:"Class Added Successfully ",error:""})
+      //  dispatch(addClass(data))
+
+  }
+
 
   const deleteClass = (event) => {
     event.preventDefault();
@@ -49,7 +55,6 @@ function Home() {
   };
 
   const getClasses = () => {
-    getAllStudentsByDepartment(authUser._id,'4it').then(res=>console.log(res.data)).catch(err => console.log(err.response))
     getAllMyClasses(authUser._id,authUser.token)
       .then((res) => {
         console.log(res.data)
@@ -61,9 +66,10 @@ function Home() {
 //  Modal
     const currentUser = useSelector(user)  
     const handleSubmit = (event) => {
-      event.preventDefault();     
-      addClassPost(state,currentUser._id).then(res => dispatch(addClass(res.data)))
-      .catch(err => setError(err.response?.data))
+      event.preventDefault();  
+      setMessage({success:"Adding class...",error:""})   
+      addClassPost(state,currentUser._id).then(res =>handleResponse(res.data) )
+      .catch(err => setMessage({success:'',error:err.response?.data}||"Error ocurred!"))
     }
   
   const {
@@ -71,7 +77,13 @@ function Home() {
     } = useSelector(user);
     
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () =>{
+    getClasses()
+    setMessage({success:'',error:''})
+
+    setShow(false);
+
+  } 
   const handleShow = () => setShow(true);
   
   
@@ -137,7 +149,11 @@ function Home() {
                   onChange={handleChange}
                 />
              </div>{
-             error?.length>0&& <div className="alert alert-danger my-2">{error}</div>
+             message.error?.length>0&& <div className="alert alert-danger my-2">{message.error}</div>
+
+             }
+             {
+             message.success?.length>0&& <div className="alert alert-success my-2">{message.success}</div>
 
              }
              
