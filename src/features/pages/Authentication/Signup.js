@@ -7,7 +7,7 @@ import { setUser } from "../../slices/dataSlice";
 import logo from "../../../assets/logo.png";
 // import bg from "../../../assets/bg.svg";
 //import wave from "../../../assets/wave.png";
-import ring from "../../../assets/ringff.png";
+import ring from "../../../assets/login.png";
 
 function Signup() {
   const navigate = useNavigate();
@@ -186,7 +186,7 @@ function Signup() {
               </div>
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 ">
             <figure>
               <img
                 src={ring}

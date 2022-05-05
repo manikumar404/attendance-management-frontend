@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, user } from "../../slices/dataSlice";
 import logo from '../../../assets/logo.png'
 import axios from "axios";
-import ring from "../../../assets/ringff.png";
+import ring from "../../../assets/login.png";
 
 
 function Login() {
@@ -144,9 +144,9 @@ function Login() {
 </div>
 
 
-<div className="col-md-6">          
+<div className="col-md-6 mt-5">          
             <figure>
-              <img src={ring}  class="img-fluid" alt="Responsive image" width='300px' />
+              <img src={ring}  class="img-fluid" alt="Responsive image" width='800px' />
             </figure>          
           </div>
 </div>  

@@ -17,6 +17,14 @@ import { useSelector } from "react-redux";
 import { user } from "../../slices/dataSlice";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal} from "react-bootstrap";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
+import pas from "../../../assets/editpass.png";
+import del from "../../../assets/delete.png";
+import up from "../../../assets/update.png";
 function AdminHome() {
   const [allTutors, setAllTutors] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -103,6 +111,59 @@ function AdminHome() {
           </div>
         } */}
       </Header>
+<div className="row p-5">
+  <div className="col-md-4">
+      <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={pas}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">         
+          <button type="button" className="btn btn-outline-success" onClick={()=>setResetPassword({...resetPassword,show:true})} >Password Recovery</button>
+          </Typography>      
+        </CardContent>
+      </CardActionArea>
+    </Card><br/>
+    </div>
+    <div className="col-md-4">
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={up}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <button type="button" className="btn btn-outline-success" onClick={()=>setStudentToken({...studentToken,show:true})}>Create Students Token</button>
+          </Typography>         
+        </CardContent>
+      </CardActionArea>
+    </Card><br/>
+    </div>
+    <div className="col-md-4">
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={up}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+          <button type="button" className="btn btn-outline-success "  onClick={()=>setTutorToken({...tutorToken,show:true})}>Create Tutors Token</button>
+          </Typography>          
+        </CardContent>
+      </CardActionArea>
+    </Card>
+    </div>
+    </div>
       <button type="button" className="btn btn-outline-primary" onClick={()=>setResetPassword({...resetPassword,show:true})} >Password Recovery</button>
     {/* <ResetPassword /> */}
       <br />
