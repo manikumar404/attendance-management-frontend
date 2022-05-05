@@ -113,7 +113,7 @@ function AdminHome() {
       </Header>
 <div className="row p-5">
   <div className="col-md-4">
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 345 }} onClick={()=>setResetPassword({...resetPassword,show:true})}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -123,14 +123,14 @@ function AdminHome() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">         
-          <button type="button" className="btn btn-outline-success" onClick={()=>setResetPassword({...resetPassword,show:true})} >Password Recovery</button>
+          Password Recovery
           </Typography>      
         </CardContent>
       </CardActionArea>
     </Card><br/>
     </div>
-    <div className="col-md-4">
-    <Card sx={{ maxWidth: 345 }}>
+    <div className="col-md-4" >
+    <Card sx={{ maxWidth: 345 }} onClick={()=>setStudentToken({...studentToken,show:true})}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -140,14 +140,14 @@ function AdminHome() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-          <button type="button" className="btn btn-outline-success" onClick={()=>setStudentToken({...studentToken,show:true})}>Create Students Token</button>
+            Create Students Token
           </Typography>         
         </CardContent>
       </CardActionArea>
     </Card><br/>
     </div>
     <div className="col-md-4">
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} onClick={()=>setTutorToken({...tutorToken,show:true})}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -157,12 +157,13 @@ function AdminHome() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-          <button type="button" className="btn btn-outline-success "  onClick={()=>setTutorToken({...tutorToken,show:true})}>Create Tutors Token</button>
+            Create Tutors Token
           </Typography>          
         </CardContent>
       </CardActionArea>
     </Card>
     </div>
+    
     </div>
       
       <Modal show={resetPassword.show} onHide={()=>setResetPassword({...resetPassword,show:false,error:'',success:''})}>
@@ -294,36 +295,29 @@ function AdminHome() {
             </Modal>
 
 
-      <div className="amcard">
-        <div className="drop-down" onClick={fetchAllTokens}>
-          All tokens
-          <div className="card">
-            <img src="" className="card-img-top" alt="..." />
-            <div className="card-body">
-              <h5 className="card-title">Delete All Tokens</h5>
-              <p className="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div>
-          {allTokens.map((token) => (
-            <div className="single-item">
-              <p>{token.propertyName}</p>
-              <p>{token.value}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      
       <br />
-      <div className="amcard">
-        <div className="drop-down" onClick={deleteTokens}>
-          delete all tokens
-        </div>
-      </div>
-
+     <div className="card m-4 p-4">
+         <Accordion defaultActiveKey="0">
+          <Accordion.Item eventKey="1">
+          <div className="drop-down" onClick={fetchAllTokens}>
+            <Accordion.Header>All Tokens</Accordion.Header>
+            </div>
+            <Accordion.Body>   
+            <div className="amcard">        
+              <div>
+                {allTokens.map((token) => (
+                  <div className="single-item">
+                    <p>{token.propertyName}</p>
+                    <p>{token.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+     </div>
 
 
 <div className="card m-4 p-4">

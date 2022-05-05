@@ -27,6 +27,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import lo from "../../../assets/login.png";
+import absent from "../../../assets/absent.png";
+import allrecord from "../../../assets/allrecord.png";
 
 function MyClass() {
   const currentClass = useSelector(selectCurrentClass);
@@ -193,20 +195,18 @@ function MyClass() {
 <div className="card m-4 p-4">
 <h3 className="pb-2 border-bottom">Attendance Management Actions</h3>
 <div className="row">
-  <div className="col-md-4">
+  <div className="col-md-4"  onClick={allRecord}>
   <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image={lo}
+          image={allrecord}
           alt="green iguana"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-          <button className="btn btn-link" onClick={allRecord}>
+          <Typography gutterBottom variant="h5" component="div">          
               View All Record
-            </button>
           </Typography>
           <Typography variant="body2" color="text.secondary">
           View all attendance records
@@ -215,7 +215,7 @@ function MyClass() {
       </CardActionArea>
     </Card><br/>
   </div>
-  <div className="col-md-4">
+  <div className="col-md-4" onClick={() => navigate("/edit-class-details")}>
   <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
@@ -226,12 +226,7 @@ function MyClass() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-          <button
-              className="btn btn-link"
-              onClick={() => navigate("/edit-class-details")}
-            >
               Edit Class Details
-            </button>
           </Typography>
           <Typography variant="body2" color="text.secondary">
           Edit name, module code and students in a class.
@@ -240,7 +235,7 @@ function MyClass() {
       </CardActionArea>
     </Card><br/>
   </div>
-  <div className="col-md-4">
+  <div className="col-md-4" onClick={() => navigate("/generate-qr")}>
   <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
@@ -251,12 +246,7 @@ function MyClass() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-          <button
-              className="btn btn-link"
-              onClick={() => navigate("/generate-qr")}
-            >
-              Generate QR Code
-            </button>
+            Generate QR Code
           </Typography>
           <Typography variant="body2" color="text.secondary">
           Generate a QR code that can be scanned wit Attendance tracker app.
@@ -397,7 +387,7 @@ function MyClass() {
                   title="put student present"
                   className="btnn border-shadow update"
                 >
-                  <span title="put student present" className="text-gradient">
+                  <span title="put student present" className="text-gradient"  type="button">
                     <FontAwesomeIcon icon={faFilePowerpoint} />
                   </span>
                 </div>
@@ -406,8 +396,8 @@ function MyClass() {
                   title="put student absent"
                   className="btnn border-shadow delete"
                 >
-                  <span title="put student absent" className="text-gradient">
-                    <FontAwesomeIcon icon={faTimes} />
+                  <span title="put student absent" className="text-gradient" type="button">
+                  <img src={absent}  width='12px' />
                   </span>
                 </div>
               </td>

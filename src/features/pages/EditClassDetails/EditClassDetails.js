@@ -52,15 +52,7 @@ function EditClassDetails() {
 
   return (
     <div>
-    <Header>
-    {
-          <div className="header_options" onClick={()=>navigate('/')}>
-            <span className="opt1">{currentUser.name}</span>
-            <span className="opt2">sign out</span>
-          </div>
-        }
-
-    </Header>
+    <Header/>
   
  <div className ="row">
    <div className='col-lg-4 col-md-3'>
