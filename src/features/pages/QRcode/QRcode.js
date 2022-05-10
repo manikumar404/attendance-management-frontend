@@ -27,7 +27,7 @@ function QRcode() {
     const refreshAttendanceFromApp= ()=>{
      
       setState({disable:'',enable:"Refreshing ..."})
-      changeClassProperty(true,authUser._id,currentClass.moduleId).then(res =>  setState({disable:'',enable:""})).catch(err => console.lgo(err.response))
+      changeClassProperty(false,authUser._id,currentClass.moduleId).then(res =>  setState({disable:'',enable:""})).catch(err => console.lgo(err.response))
     }
 
   return (
@@ -47,7 +47,7 @@ function QRcode() {
     <button className='btn btn-danger' onClick={disableAttendanceFromApp}>Disable App Attendance</button>
     
     <button className ="btn btn-success" onClick={enableAttendanceFromApp}>Enable App Attendance</button>
-    <button className ="btn btn-info" onClick={refreshAttendanceFromApp}>Refresh QR Code</button>
+    <RefreshButton refresh = {refreshAttendanceFromApp}/>
 
 
   
@@ -89,3 +89,25 @@ function QRcode() {
 }
 
 export default QRcode
+
+function RefreshButton(props){
+  const authUser = useSelector(user)
+  const currentClass = useSelector(selectCurrentClass)
+
+  const [btnText,setBtnText] = useState(0)
+  setTimeout(()=>{
+    setBtnText((btnText+1)%30)
+
+  },1000)
+  if(btnText===29){
+   
+    changeClassProperty(false,authUser._id,currentClass.moduleId).then(res => console.log("refreshing ")).catch(err => console.lgo(err.response))
+
+  }
+  return(
+    <div>
+     <button className ="btn btn-info" >Refreshing in {btnText} seconds</button>
+
+    </div>
+  )
+}
