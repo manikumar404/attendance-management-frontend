@@ -23,8 +23,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import pas from "../../../assets/editpass.png";
-import del from "../../../assets/delete.png";
-import up from "../../../assets/update.png";
+import ttoken from "../../../assets/ttoken.png";
+import stdtoken from "../../../assets/stdtoken.png";
 function AdminHome() {
   const [allTutors, setAllTutors] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -135,7 +135,7 @@ function AdminHome() {
         <CardMedia
           component="img"
           height="140"
-          image={up}
+          image={stdtoken}
           alt="green iguana"
         />
         <CardContent>
@@ -152,7 +152,7 @@ function AdminHome() {
         <CardMedia
           component="img"
           height="140"
-          image={up}
+          image={ttoken}
           alt="green iguana"
         />
         <CardContent>
