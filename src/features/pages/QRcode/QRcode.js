@@ -101,7 +101,7 @@ function RefreshButton(props){
   },1000)
   if(btnText===29){
    
-    changeClassProperty(false,authUser._id,currentClass.moduleId).then(res => console.log("refreshing ")).catch(err => console.lgo(err.response))
+    changeClassProperty(true,authUser._id,currentClass.moduleId).then(res => console.log("refreshing ")).catch(err => console.lgo(err.response))
 
   }
   return(
